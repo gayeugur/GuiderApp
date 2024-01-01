@@ -9,42 +9,50 @@ import UIKit
 import Firebase
 //g@gmail.com 123457
 
-
 class ViewController: UIViewController {
-
+    
+    //MARK: @IBOUTLET
     @IBOutlet weak var segmentedControl: UISegmentedControl!
-    @IBOutlet weak var usernameText: UITextField!
     @IBOutlet weak var mailText: UITextField!
     @IBOutlet weak var passwordText: UITextField!
     @IBOutlet weak var rePasswordText: UITextField!
     @IBOutlet weak var nextButton: UIButton!
     
+    //MARK: PROPERTIES
     var isLogin = true
     
+    //MARK: LIFECYCLES
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
+        navigationController?.setNavigationBarHidden(true, animated: true)
+        tabBarController?.tabBar.isHidden = true
+        mailText.text = "gayeugur00@gmail.com"
+        passwordText.text = "123123"
     }
     
+    //MARK: PRIVATE FUNCTION
     private func isLoginHidden() {
-        usernameText.isHidden = true
         rePasswordText.isHidden = true
         isLogin = true
+        nextButton.setTitle("Sign In", for: .normal)
     }
     
     private func isNotUser() {
-        usernameText.isHidden = false
-        rePasswordText.isHidden = false
+        rePasswordText .isHidden = false
         isLogin = false
+        nextButton?.setTitle("Sign Up", for: .normal)
     }
     
     private func setup() {
         segmentedControl.setTitle("Sign In", forSegmentAt: 0)
         segmentedControl.setTitle("Sign Up", forSegmentAt: 1)
         isLoginHidden()
-        nextButton.layer.cornerRadius = 20
+        nextButton?.layer.cornerRadius = 20
+        nextButton?.setTitle("Sign In", for: .normal)
     }
-
+    
+    //MARK: @IBACTION
     @IBAction func segmentedAction(_ sender: Any) {
         switch segmentedControl.selectedSegmentIndex {
         case 0 :
@@ -59,51 +67,42 @@ class ViewController: UIViewController {
     @IBAction func loginAction(_ sender: Any) {
         
         if isLogin {
-            
-            if mailText.text != "" && passwordText.text != "" {
+            if let mail = mailText.text, let password = passwordText.text {
                 
-                Auth.auth().signIn(withEmail: mailText.text!, password: passwordText.text!) { (authdata, error) in
+                Auth.auth().signIn(withEmail: mail, password: password) { (authdata, error) in
                     if error != nil {
-                        self.makeAlert(titleInput: "Error!", messageInput: error?.localizedDescription ?? "Error")
-
-                    } else {
-                        print("successs")
-                        self.performSegue(withIdentifier:"toHomePage" , sender: nil)
+                        Constant.makeAlert(on: self, titleInput: "Error!", messageInput: error?.localizedDescription ?? "Error")
                         
+                    } else {
+                        let user = User(password: password, mail: mail)
+                        UserManager.shared.setUser(user: user)
+                        print("successs")
+                        self.performSegue(withIdentifier:"toHome" , sender: nil)
                     }
                 }
                 
                 
             } else {
-                makeAlert(titleInput: "Error!", messageInput: "Username/Password?")
-
+                Constant.makeAlert(on: self, titleInput: "Error!", messageInput: "Username/Password?")
+                
             }
             
         } else {
-            if mailText.text != "" && passwordText.text != "" && rePasswordText.text != "" && passwordText.text == rePasswordText.text {
-                Auth.auth().createUser(withEmail: mailText.text!, password: passwordText.text!) { (authdata, error) in
+            if let mail = mailText.text, let password = passwordText.text, let rePassword = rePasswordText.text, password == rePassword {
+                Auth.auth().createUser(withEmail: mail, password: password) { (authdata, error) in
                     
                     if error != nil {
-                        self.makeAlert(titleInput: "Error!", messageInput: error?.localizedDescription ?? "Error")
+                        Constant.makeAlert(on: self, titleInput: "Error!", messageInput: error?.localizedDescription ?? "Error")
                     } else {
-                        print("successs")
-                        self.performSegue(withIdentifier:"toHomePage" , sender: nil)
-                      
-                        
+                        self.performSegue(withIdentifier:"toHome" , sender: nil)
                     }
                 }
                 
             } else {
-                makeAlert(titleInput: "Error!", messageInput: "Username/Password?")
+                Constant.makeAlert(on: self, titleInput: "Error!", messageInput: "Username/Password?")
             }
         }
-      
-    }
-    func makeAlert(titleInput:String, messageInput:String) {
-        let alert = UIAlertController(title: titleInput, message: messageInput, preferredStyle: UIAlertController.Style.alert)
-                    let okButton = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
-                    alert.addAction(okButton)
-                    self.present(alert, animated: true, completion: nil)
+        
     }
     
     

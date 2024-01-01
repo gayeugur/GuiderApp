@@ -4,103 +4,92 @@
 //
 //  Created by gayeugur on 14.10.2023.
 //
-
 import Foundation
 import FirebaseFirestore
 import FirebaseStorage
 
 final class BlogModel {
     
-    var blogs: [Blog] = []
+    enum BlogResult {
+        case success([Blog])
+        case failure(Error)
+    }
     
-    var eventHandler: ((_ event: Constant.Event) -> Void)?
-    
-    func fetchBlogData() {
-        self.eventHandler?(.loading)
-        let fireStoreDatabase = Firestore.firestore()
-            
-        fireStoreDatabase.collection("Blog").order(by: "name", descending: true).addSnapshotListener { [self] (snapshot, error) in
-            if error != nil {
-                self.eventHandler?(.error(error))
-            } else {
-                if snapshot?.isEmpty != true && snapshot != nil {
-                    for document in snapshot!.documents {
+    func fetchBlogData(completion: @escaping (BlogResult) -> Void) {
+        
+        Constant.fireStoreDatabase.collection("Blog").order(by: "name", descending: true).getDocuments { (snapshot, error) in
+            if let error = error {
+                completion(.failure(error))
+            } else if let snapshot = snapshot {
+                var fetchedBlogs: [Blog] = []
+                
+                for document in snapshot.documents {
+                    if let postName = document.get("name") as? String,
+                       let postComment = document.get("comment") as? String,
+                       let postImage = document.get("image") as? String {
                         
-                        if let postName = document.get("name") as? String, let postComment = document.get("comment") as? String, let postImage = document.get("image") as? String {
-                            
-                            let blog = Blog(blogName: postName, blogImage: postImage, blogDescription: postComment)
-                            blogs.append(blog)
-                            
-                        }
-                        self.eventHandler?(.dataLoaded)
+                        let blog = Blog(blogName: postName, blogImage: postImage, blogDescription: postComment)
+                        fetchedBlogs.append(blog)
                     }
-                   
                 }
                 
+                completion(.success(fetchedBlogs))
+            } else {
+                let unknownError = NSError(domain: "Unknown", code: -1, userInfo: [NSLocalizedDescriptionKey: "Bilinmeyen bir hata oluştu"])
+                completion(.failure(unknownError))
             }
         }
     }
     
-    func addBlogData(image: UIImage, blogName: String, blogDescription: String) {
-        let storage = Storage.storage()
-        let storageReference = storage.reference()
-                
-        let mediaFolder = storageReference.child("blog")
+    func uploadImageToFirebase(image: UIImage, blogName: String, blogDescription: String, completion: @escaping (Constant.AddResultCases) -> Void) {
+        guard let imageData = image.jpegData(compressionQuality: 0.5) else {
+            print("Cannot convert image to data.")
+            return
+        }
         
-               if let data = image.jpegData(compressionQuality: 0.5) {
-                   
-                   let uuid = UUID().uuidString
-                              
-                   let imageReference = mediaFolder.child("\(uuid).jpg")
-                   imageReference.putData(data, metadata: nil) { (metadata, error) in
-                       if error != nil {
-                           print(error?.localizedDescription)
-                       } else {
-                           
-                           imageReference.downloadURL { (url, error) in
-                               
-                               if error == nil {
-                                   
-                                   let imageUrl = url?.absoluteString
-                                   print(imageUrl)
-                                   let firestoreDatabase = Firestore.firestore()
-                                   
-                                   var firestoreReference : DocumentReference? = nil
-                                   
-                                   let firestorePost = ["image" : imageUrl!, "name" : blogName , "comment" : blogDescription] as [String : Any]
-
-                                   firestoreReference = firestoreDatabase.collection("Blog").addDocument(data: firestorePost, completion: { (error) in
-                                       if error != nil {
-                                           
-                                        
-                                           
-                                       } else {
-                                           
-                                          
-                                          
-                                          print("erorr")
-                                           
-                                       }
-                                   })
-                                   
-                                   
-                                   
-                               }
-                               
-                               
-                           }
-                           
-                       }
-                   }
-                   
-                   
-               }
-               
+        let storageRef = Storage.storage().reference().child("blog_images").child("\(UUID().uuidString).jpg")
         
-        
-        
-    }
-
+        storageRef.putData(imageData, metadata: nil) { (metadata, error) in
+            if let error = error {
+                print("Error uploading image: \(error.localizedDescription)")
+                completion(.failure(error))
+                return
+            }
+            
+            storageRef.downloadURL { (url, error) in
+                if let downloadURL = url {
+                    print("Download URL: \(downloadURL)")
+                    
+                    let blog = Blog(blogName: blogName, blogImage: downloadURL.absoluteString, blogDescription: blogDescription)
+                    self.addBlog(blog: blog) { result in
+                        completion(.success("success"))
+                    }
+                } else if let error = error {
+                    print("Error getting download URL: \(error.localizedDescription)")
+                    completion(.failure(error))
+                }
+            }
+        }
     }
     
-
+    func addBlog(blog: Blog, completion: @escaping (Constant.AddResultCases) -> Void) {
+        let blogRef = Constant.fireStoreDatabase.collection("Blog").document()
+        
+        let data: [String: Any] = [
+            "name": blog.blogName,
+            "comment": blog.blogDescription,
+            "image": blog.blogImage
+        ]
+        
+        blogRef.setData(data) { error in
+            if error == nil {
+                completion(.success("Adding Success"))
+            } else {
+                let unknownError = NSError(domain: "Unknown", code: -1, userInfo: [NSLocalizedDescriptionKey: "Bilinmeyen bir hata oluştu"])
+                completion(.failure(unknownError))
+            }
+        }
+    }
+    
+    
+}

@@ -41,40 +41,36 @@ class BookingVM {
             }
         }
     }
-
-
+    
+    
     func addBlogData(place: Place?) {
         guard let place = place else {
             print("Error: Place object is nil")
             return
         }
-
+        
         let db = Firestore.firestore()
-
-        // Create a reference to the Firestore collection where you want to store the data
+        
         let blogCollection = db.collection("BookedList")
-
-        // Create a dictionary representing the data you want to store
+        
         let data: [String: Any] = [
-            "cityName": place.name,
-            "date": place.date,
-            "guider": place.guider,
-            "image": place.image,
-            "price": place.price,
-            "rate": place.rate
-            // Add other fields as needed based on your 'Place' model
+            "cityName": place.name as Any,
+            "date": place.date as Any,
+            "guider": place.guider as Any,
+            "image": place.image as Any,
+            "price": place.price as Any,
+            "rate": place.rate as Any
+            
         ]
-
-        // Add a new document with a generated ID to the 'BookedList' collection
+        
         blogCollection.addDocument(data: data) { error in
             if let error = error {
                 print("Error adding document: \(error)")
             } else {
                 print("Document added with ID: \(blogCollection.document().documentID)")
-                // You can handle success cases here
             }
         }
     }
-
-
+    
+    
 }

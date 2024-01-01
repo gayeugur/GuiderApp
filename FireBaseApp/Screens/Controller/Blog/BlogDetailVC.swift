@@ -8,22 +8,56 @@
 import UIKit
 
 class BlogDetailVC: UIViewController {
-
+    
+    //MARK: @IBOUTLET
+    @IBOutlet weak var bloDetailImageView: UIImageView!
+    @IBOutlet weak var blogTitle: UILabel!
+    @IBOutlet weak var blogDetail: UILabel!
+    
+    //MARK: PROPERTIES
+    let activityIndicator = UIActivityIndicatorView(style: .large)
+    
+    var blog: Blog? {
+        didSet {
+            setAllData()
+        }
+    }
+    
+    //MARK: LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        configureActivityView()
+        self.title = blog?.blogName
     }
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    //MARK: FUNCTIONS
+    private func configureActivityView() {
+        activityIndicator.center = view.center
+        view.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
     }
-    */
-
+    
+    func setAllData() {
+        guard let blog else { return }
+        if let imageURL = URL(string: blog.blogImage) {
+            
+            let task = URLSession.shared.dataTask(with: imageURL) { (data, response, error) in
+                if let error = error {
+                    print("Error: \(error.localizedDescription)")
+                    return
+                }
+                
+                if let data = data, let image = UIImage(data: data) {
+                    DispatchQueue.main.async { [self] in
+                        bloDetailImageView.image = image
+                        blogDetail.text = blog.blogDescription
+                        blogTitle.text = blog.blogName
+                        self.activityIndicator.stopAnimating()
+                    }
+                }
+            }
+            task.resume()
+        }
+    }
+    
 }

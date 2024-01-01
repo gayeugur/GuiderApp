@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+struct Chat {
+    let name: String
+    let icon:String
+    let lastMessage: String
+    let color: Int
+}
