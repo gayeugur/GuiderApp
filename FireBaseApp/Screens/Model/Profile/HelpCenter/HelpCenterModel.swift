@@ -15,7 +15,7 @@ class HelpCenterModel {
     func fetchProfileMenu() {
         self.eventHandler?(.loading)
             
-        Constant.fireStoreDatabase.collection("HelpCenterMenu").order(by: "id") .addSnapshotListener { [self] (snapshot, error) in
+        DatabaseManager.shared.fireStoreDatabase.collection("HelpCenterMenu").order(by: "id") .addSnapshotListener { [self] (snapshot, error) in
             if error != nil {
                 self.eventHandler?(.error(error))
             } else {
