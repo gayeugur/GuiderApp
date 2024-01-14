@@ -46,7 +46,7 @@
                                 <color key="backgroundColor" red="0.88627451660000001" green="0.88627451660000001" blue="0.88627451660000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="1zR-QU-hwC" firstAttribute="top" secondItem="6Dp-Zo-d2f" secondAttribute="top" constant="10" id="PxT-Kp-Yf8"/>
                             <constraint firstAttribute="bottom" secondItem="1zR-QU-hwC" secondAttribute="bottom" constant="10" id="hEb-WI-We7"/>
@@ -56,6 +56,7 @@
                         </constraints>
                     </view>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="6Dp-Zo-d2f" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="F8t-rU-Jly"/>
                     <constraint firstAttribute="bottom" secondItem="6Dp-Zo-d2f" secondAttribute="bottom" id="qTk-i7-qzg"/>
@@ -64,6 +65,7 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="blogimageView" destination="WLn-4V-BtE" id="ZxH-NW-YN7"/>
                 <outlet property="commentText" destination="wJR-Zt-GU9" id="Vcq-ky-jtl"/>

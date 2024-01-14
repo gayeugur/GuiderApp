@@ -4,7 +4,6 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -20,8 +19,8 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="RUg-Qh-0Cm">
-                    <rect key="frame" x="10" y="69" width="373" height="754"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <rect key="frame" x="15" y="69" width="363" height="754"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="4" id="n8T-gn-6rn">
                         <size key="itemSize" width="180" height="220"/>
                         <size key="estimatedItemSize" width="180" height="220"/>
@@ -32,19 +31,14 @@
                 </collectionView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" red="0.83921568627450982" green="0.91764705882352937" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="RUg-Qh-0Cm" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="10" id="9pR-13-6tv"/>
-                <constraint firstItem="RUg-Qh-0Cm" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="10" id="IHh-tH-d57"/>
+                <constraint firstItem="RUg-Qh-0Cm" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="15" id="IHh-tH-d57"/>
                 <constraint firstItem="RUg-Qh-0Cm" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" constant="5" id="eWU-Xp-KLd"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="RUg-Qh-0Cm" secondAttribute="trailing" constant="10" id="ukh-oP-mdl"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="RUg-Qh-0Cm" secondAttribute="trailing" constant="15" id="ukh-oP-mdl"/>
             </constraints>
             <point key="canvasLocation" x="55.725190839694655" y="20.422535211267608"/>
         </view>
     </objects>
-    <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-    </resources>
 </document>

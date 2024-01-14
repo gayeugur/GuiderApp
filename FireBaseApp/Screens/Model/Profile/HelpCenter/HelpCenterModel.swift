@@ -8,25 +8,24 @@ import Foundation
 import FirebaseFirestore
 
 class HelpCenterModel {
-    var helpCenterMenu: [Menu] = []
     
-    var eventHandler: ((_ event: Constant.Event) -> Void)?
+    var expandedRows = Set<Int>()
     
-    func fetchProfileMenu() {
-        self.eventHandler?(.loading)
+    func fetchProfileMenu(completion: @escaping (Constant.ResultCases<[Menu]>) -> Void) {
             
-        DatabaseManager.shared.fireStoreDatabase.collection("HelpCenterMenu").order(by: "id") .addSnapshotListener { [self] (snapshot, error) in
+        DatabaseManager.shared.fireStoreDatabase.collection("HelpCenterMenu").order(by: "id") .addSnapshotListener { (snapshot, error) in
             if error != nil {
-                self.eventHandler?(.error(error))
+                completion(.failure(error ?? Helper.createGenericError()))
             } else {
                 if snapshot?.isEmpty != true && snapshot != nil {
+                    var helpCenterMenu: [Menu] = []
                     for document in snapshot!.documents {
                         if let menuName = document.get("name") as? String, let menuIcon = document.get("icon") as? String, let detail = document.get("detail") as? String {
                             let menu = Menu(name: menuName, icon: menuIcon, detail: detail)
                             helpCenterMenu.append(menu)
                         }
                     }
-                    self.eventHandler?(.dataLoaded)
+                    completion(.success(helpCenterMenu))
                 }
                 
             }

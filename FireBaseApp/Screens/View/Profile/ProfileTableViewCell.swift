@@ -10,8 +10,10 @@ import UIKit
 class ProfileTableViewCell: UITableViewCell {
     
     //MARK: @IBOUTLET
+    @IBOutlet weak var proifleContentView: UIView!
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var menuText: UILabel!
+    @IBOutlet weak var profileView: UIView!
     
     //MARK: PROPERTIES
     var profile: Menu? {
@@ -23,6 +25,7 @@ class ProfileTableViewCell: UITableViewCell {
     //MARK: OVERRIDE FUNCTION
     override func awakeFromNib() {
         super.awakeFromNib()
+        profileView.layer.cornerRadius = 12
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

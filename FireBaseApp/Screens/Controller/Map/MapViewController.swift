@@ -17,6 +17,7 @@ class MapViewController: UIViewController {
     let mapVM = MapModel()
     var locations: [Place] = []
     var selectedLocation: Place?
+    let activityIndicator = UIActivityIndicatorView(style: .large)
     
     //MARK: LIFECYCLES
     override func viewDidLoad() {
@@ -26,31 +27,44 @@ class MapViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        configure()
         fetchMapData()
     }
     
     //MARK: FUNCTIONS
+    private func configure() {
+        activityIndicator.center = view.center
+        view.addSubview(activityIndicator)
+        activityIndicator.startAnimating()
+    }
+    
     private func fetchMapData() {
+        self.activityIndicator.startAnimating()
         mapVM.fetchBlogData { result in
             switch result {
             case .success(let locations):
                 self.locations = locations
-                print("data here")
                 for location in locations {
-                    self.initLocations(latitude: location.latitude ?? 0, longitude: location.longitude ?? 0, name: location.name ?? "", details: location.details ?? "")
+                    self.initLocations(latitude: location.latitude ?? 0,
+                                       longitude: location.longitude ?? 0,
+                                       name: location.name ?? "",
+                                       details: location.details ?? "")
                 }
+                self.activityIndicator.stopAnimating()
             case .failure(let error):
-                print("Hata oluştu: \(error.localizedDescription)")
+                self.activityIndicator.stopAnimating()
+                Helper.makeAlert(on: self,
+                                 titleInput: ConstantMessages.errorTitle,
+                                 messageInput: error.localizedDescription)
             }
         }
         
-        let istanbulLocation = CLLocation(latitude: 41.0082, longitude: 28.9784)
+        let location = CLLocation(latitude: 41.0082, longitude: 28.9784)
         let regionRadius: CLLocationDistance = 20000
-        centerMapOnLocation(location: istanbulLocation, regionRadius: regionRadius)
+        centerMapOnLocation(location: location, regionRadius: regionRadius)
     }
     
     private func initLocations(latitude: Double, longitude: Double, name: String, details: String) {
-        
         let locationCoordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         let annotation = MKPointAnnotation()
         annotation.coordinate = locationCoordinate
@@ -73,34 +87,36 @@ class MapViewController: UIViewController {
 extension MapViewController: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-
+        
         if let annotation = view.annotation as? MKPointAnnotation {
             if let selectedPlace = locations.first(where: { $0.latitude == annotation.coordinate.latitude && $0.longitude == annotation.coordinate.longitude }) {
                 selectedLocation = selectedPlace
             }
         }
-  
+        
         if let selectedLocation = selectedLocation {
-            let alertController = UIAlertController(title: selectedLocation.name, message: selectedLocation.details , preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "Add favorite list", style: .default) { action in
-                if let selectedLocation = self.selectedLocation {
-                    self.mapVM.addToFavorites(place: selectedLocation) { result in
-                        switch result {
-                        case .success(let message):
-                            Constant.makeAlert(on: self, titleInput: message, messageInput: "")
-                        case .failure(let error):
-                            Constant.makeAlert(on: self, titleInput: error.localizedDescription, messageInput: "")
-                        }
-                    }
-                }
-            }
-            
-            let detailButton = UIAlertAction(title: "Close", style: .default, handler: nil)
-            alertController.addAction(okAction)
-            alertController.addAction(detailButton)
-            present(alertController, animated: true, completion: nil)
+            Helper.makeAlert(on: self,
+                             titleInput: ConstantMessages.successTitle,
+                             messageInput: ConstantMessages.addFavorite,
+                             buttonAction: { [weak self] in
+                self?.actionButtonAction(selectedLocation: selectedLocation)
+            })
         }
     }
     
-  
+    func actionButtonAction(selectedLocation: Place) {
+        self.mapVM.addToFavorites(place: selectedLocation) { result in
+            switch result {
+            case .success(_):
+                Helper.makeAlert(on: self,
+                                 titleInput: ConstantMessages.successTitle,
+                                 messageInput: ConstantMessages.successDetail)
+            case .failure(let error):
+                Helper.makeAlert(on: self,
+                                 titleInput: ConstantMessages.errorTitle,
+                                 messageInput: error.localizedDescription)
+            }
+        }
+    }
+    
 }

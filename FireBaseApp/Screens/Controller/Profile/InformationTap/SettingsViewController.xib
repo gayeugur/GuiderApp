@@ -4,7 +4,6 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -20,19 +19,19 @@
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" ambiguous="YES" id="i5M-Pr-FkT">
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2kv-fw-orl">
-                    <rect key="frame" x="15" y="69" width="363" height="600"/>
+                    <rect key="frame" x="15" y="69" width="363" height="649"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="6QO-pM-lNd">
                             <rect key="frame" x="0.0" y="0.0" width="363" height="470"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SRZ-5H-oAc">
                                     <rect key="frame" x="0.0" y="0.0" width="363" height="70"/>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="70" id="n13-ax-cDu"/>
                                     </constraints>
@@ -47,7 +46,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstItem="gpm-nO-WCu" firstAttribute="top" secondItem="itg-st-3RW" secondAttribute="top" constant="15" id="Riv-vl-fTs"/>
                                         <constraint firstItem="gpm-nO-WCu" firstAttribute="leading" secondItem="itg-st-3RW" secondAttribute="leading" constant="10" id="dZX-le-M47"/>
@@ -82,7 +81,7 @@
                                             <textInputTraits key="textInputTraits"/>
                                         </textField>
                                     </subviews>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstItem="7gQ-XV-dh2" firstAttribute="leading" secondItem="lVk-l9-UTF" secondAttribute="leading" constant="20" id="32c-FA-7VO"/>
                                         <constraint firstItem="jda-qa-hgj" firstAttribute="top" secondItem="7gQ-XV-dh2" secondAttribute="bottom" constant="20" id="4r8-w3-Icv"/>
@@ -106,7 +105,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstItem="A9n-DD-gN3" firstAttribute="top" secondItem="Sti-5s-KqQ" secondAttribute="top" constant="15" id="07N-Pl-IQv"/>
                                         <constraint firstItem="A9n-DD-gN3" firstAttribute="leading" secondItem="Sti-5s-KqQ" secondAttribute="leading" constant="10" id="Ypa-3Y-tQM"/>
@@ -126,7 +125,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.8980392157" green="0.76470588240000004" blue="0.65098039220000004" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" red="0.89411764705882346" green="0.87058823529411766" blue="0.74509803921568629" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="gKr-5D-KPv" secondAttribute="bottom" constant="10" id="Moy-D6-8dy"/>
                                                 <constraint firstItem="gKr-5D-KPv" firstAttribute="leading" secondItem="Gh0-1v-zje" secondAttribute="leading" constant="10" id="qHR-lU-RXB"/>
@@ -135,7 +134,7 @@
                                             </constraints>
                                         </view>
                                     </subviews>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstItem="Gh0-1v-zje" firstAttribute="leading" secondItem="lpK-GG-pYj" secondAttribute="leading" constant="10" id="4wk-So-bRq"/>
                                         <constraint firstAttribute="trailing" secondItem="Gh0-1v-zje" secondAttribute="trailing" constant="10" id="Kxm-Qf-lce"/>
@@ -145,6 +144,7 @@
                                     </constraints>
                                 </view>
                             </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstItem="SRZ-5H-oAc" firstAttribute="top" secondItem="6QO-pM-lNd" secondAttribute="top" id="H1s-hh-cmR"/>
                                 <constraint firstItem="itg-st-3RW" firstAttribute="leading" secondItem="6QO-pM-lNd" secondAttribute="leading" id="H8L-WY-Dnu"/>
@@ -166,7 +166,6 @@
                     </subviews>
                     <constraints>
                         <constraint firstItem="6QO-pM-lNd" firstAttribute="top" secondItem="br1-FW-I7w" secondAttribute="top" id="FMV-cz-z9w"/>
-                        <constraint firstAttribute="height" constant="600" id="MM8-bX-sB7"/>
                         <constraint firstItem="6QO-pM-lNd" firstAttribute="trailing" secondItem="br1-FW-I7w" secondAttribute="trailing" id="RVR-MN-mGW"/>
                         <constraint firstItem="6QO-pM-lNd" firstAttribute="width" secondItem="OE5-FV-IlR" secondAttribute="width" id="XRg-O8-bb1"/>
                         <constraint firstItem="6QO-pM-lNd" firstAttribute="leading" secondItem="br1-FW-I7w" secondAttribute="leading" id="ev4-lq-mm9"/>
@@ -176,11 +175,15 @@
                     <viewLayoutGuide key="frameLayoutGuide" id="OE5-FV-IlR"/>
                 </scrollView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PkS-AA-exM">
-                    <rect key="frame" x="0.0" y="669" width="393" height="70"/>
+                    <rect key="frame" x="0.0" y="718" width="393" height="80"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="suL-Fg-T3L">
-                            <rect key="frame" x="20" y="10" width="353" height="40"/>
-                            <color key="backgroundColor" red="0.87843137979999997" green="0.87843137979999997" blue="0.87843137979999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <rect key="frame" x="20" y="10" width="353" height="50"/>
+                            <color key="backgroundColor" red="0.90196078430000004" green="0.67450980390000004" blue="0.63921568630000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="agc-fu-iOE"/>
+                            </constraints>
+                            <color key="tintColor" red="0.66274509800000003" green="0.2666666667" blue="0.21960784310000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" title="Save"/>
                             <connections>
@@ -190,7 +193,6 @@
                     </subviews>
                     <constraints>
                         <constraint firstItem="suL-Fg-T3L" firstAttribute="leading" secondItem="PkS-AA-exM" secondAttribute="leading" constant="20" id="5ob-FD-8hp"/>
-                        <constraint firstAttribute="height" constant="70" id="5yt-Lg-iY1"/>
                         <constraint firstItem="suL-Fg-T3L" firstAttribute="top" secondItem="PkS-AA-exM" secondAttribute="top" constant="10" id="MDH-69-dPm"/>
                         <constraint firstAttribute="bottom" secondItem="suL-Fg-T3L" secondAttribute="bottom" constant="20" id="b94-17-F2X"/>
                         <constraint firstAttribute="trailing" secondItem="suL-Fg-T3L" secondAttribute="trailing" constant="20" id="oyy-Lm-01h"/>
@@ -198,22 +200,17 @@
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <color key="backgroundColor" red="0.83921568627450982" green="0.91764705882352937" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="2kv-fw-orl" secondAttribute="trailing" constant="15" id="I7c-9E-Awm"/>
                 <constraint firstItem="PkS-AA-exM" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Rci-cu-fsg"/>
-                <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="PkS-AA-exM" secondAttribute="bottom" constant="100" id="SuQ-1w-N71"/>
                 <constraint firstItem="PkS-AA-exM" firstAttribute="top" secondItem="2kv-fw-orl" secondAttribute="bottom" id="nx6-Gl-X0s"/>
                 <constraint firstItem="2kv-fw-orl" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="15" id="og9-bc-gLt"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="PkS-AA-exM" secondAttribute="trailing" id="pdu-ur-gsO"/>
                 <constraint firstItem="2kv-fw-orl" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="10" id="rW0-3d-IKE"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="PkS-AA-exM" secondAttribute="bottom" constant="20" id="t9H-D4-wtN"/>
             </constraints>
             <point key="canvasLocation" x="67.938931297709928" y="19.718309859154932"/>
         </view>
     </objects>
-    <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-    </resources>
 </document>

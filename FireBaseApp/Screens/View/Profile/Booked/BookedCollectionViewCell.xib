@@ -4,7 +4,6 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -39,14 +38,14 @@
                                                     <constraint firstAttribute="width" constant="30" id="gW7-UJ-oY0"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label1" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="ZWF-uv-pFx">
-                                                <rect key="frame" x="50" y="30.333333333333329" width="170" height="18"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label1" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="8" translatesAutoresizingMaskIntoConstraints="NO" id="ZWF-uv-pFx">
+                                                <rect key="frame" x="50" y="33.333333333333343" width="170" height="12"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemGreenColor"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="ZWF-uv-pFx" firstAttribute="leading" secondItem="RoW-j4-BOX" secondAttribute="trailing" constant="10" id="71h-19-xlF"/>
                                             <constraint firstItem="ZWF-uv-pFx" firstAttribute="centerX" secondItem="pio-NZ-X42" secondAttribute="centerX" id="9qb-8R-tBf"/>
@@ -72,7 +71,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemGreenColor"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="7x6-Uc-P68" firstAttribute="top" secondItem="D3O-1E-SXt" secondAttribute="top" constant="5" id="5dM-EW-POw"/>
                                             <constraint firstItem="iMm-9Z-PGB" firstAttribute="centerX" secondItem="D3O-1E-SXt" secondAttribute="centerX" id="8hO-Dh-lX5"/>
@@ -98,7 +97,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemGreenColor"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="yRO-dT-Y2P" firstAttribute="centerX" secondItem="p4u-Rt-Q55" secondAttribute="centerX" id="T9o-Bd-Lty"/>
                                             <constraint firstItem="geC-dA-jFl" firstAttribute="leading" secondItem="p4u-Rt-Q55" secondAttribute="leading" constant="10" id="YVn-m7-cG0"/>
@@ -111,7 +110,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemYellowColor"/>
+                        <color key="backgroundColor" red="0.97254902119999997" green="0.83137255909999996" blue="0.79607844350000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="kVF-gd-Xln" firstAttribute="top" secondItem="aUW-UO-g5i" secondAttribute="bottom" constant="10" id="YC7-cW-Aq6"/>
                             <constraint firstAttribute="trailing" secondItem="kVF-gd-Xln" secondAttribute="trailing" constant="10" id="fU1-eR-O3t"/>
@@ -124,6 +123,7 @@
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <color key="backgroundColor" red="0.83921568629999999" green="0.91764705879999997" blue="0.97254901959999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
             <constraints>
                 <constraint firstItem="FE8-L8-w70" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="bmo-Uq-VCv"/>
                 <constraint firstItem="FE8-L8-w70" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="f4G-E4-h6H"/>
@@ -149,11 +149,5 @@
         <image name="pedal.clutch.fill" catalog="system" width="117" height="128"/>
         <image name="person.circle.fill" catalog="system" width="128" height="123"/>
         <image name="square.and.arrow.up.fill" catalog="system" width="115" height="128"/>
-        <systemColor name="systemGreenColor">
-            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemYellowColor">
-            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
     </resources>
 </document>

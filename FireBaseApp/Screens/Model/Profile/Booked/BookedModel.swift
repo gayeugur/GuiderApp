@@ -9,18 +9,15 @@ import Foundation
 import FirebaseFirestore
 
 class BookedModel {
-    var booked: [Place] = []
     
-    var eventHandler: ((_ event: Constant.Event) -> Void)?
-    
-    func fetchBookedPlaces() {
-        self.eventHandler?(.loading)
+    func fetchBookedPlaces(completion: @escaping (Constant.ResultCases<[Place]>) -> Void) {
             
-        Constant.fireStoreDatabase.collection("BookedList").order(by: "date", descending: true).addSnapshotListener { [self] (snapshot, error) in
+        DatabaseManager.shared.fireStoreDatabase.collection("BookedList").order(by: "date", descending: true).addSnapshotListener { (snapshot, error) in
             if error != nil {
-                self.eventHandler?(.error(error))
+                completion(.failure(error ?? Helper.createGenericError()))
             } else {
                 if snapshot?.isEmpty != true && snapshot != nil {
+                    var booked: [Place] = []
                     for document in snapshot!.documents {
                         
                         if let name = document.get("guider") as? String, let image = document.get("image") as? String, let price = document.get("price") as? Int, let date = document.get("date") as? String {
@@ -31,7 +28,7 @@ class BookedModel {
                         }
                       
                     }
-                    self.eventHandler?(.dataLoaded)
+                    completion(.success(booked))
                 }
                 
             }

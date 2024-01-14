@@ -14,7 +14,9 @@ class FavoritesTableViewCell: UITableViewCell {
     @IBOutlet weak var favoriName: UILabel!
     @IBOutlet weak var guidersButton: UIButton!
     @IBOutlet weak var bookButton: UIButton!
+    @IBOutlet weak var favoriteContentView: UIView!
     
+    @IBOutlet weak var favoriteStackView: UIStackView!
     var showGuidersAction: (() -> Void)?
     var bookedAction: (() -> Void)?
     
@@ -48,10 +50,17 @@ class FavoritesTableViewCell: UITableViewCell {
     private func initUI(){
         guidersButton.isHidden = true
         bookButton.isHidden = true
+        favoriteStackView.layer.cornerRadius = 12
+        favoritesImageView.layer.cornerRadius = 12
     }
     
     func setPlace() {
         guard let place else { return }
+        
+        DispatchQueue.main.async {
+            self.guidersButton.isHidden = false
+            self.bookButton.isHidden = false
+        }
         
         if let imageURL = URL(string: place.image ?? "") {
             

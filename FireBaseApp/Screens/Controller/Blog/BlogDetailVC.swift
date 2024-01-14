@@ -26,12 +26,12 @@ class BlogDetailVC: UIViewController {
     //MARK: LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureActivityView()
-        self.title = blog?.blogName
+        configure()
     }
     
     //MARK: FUNCTIONS
-    private func configureActivityView() {
+    private func configure() {
+        self.title = blog?.blogName
         activityIndicator.center = view.center
         view.addSubview(activityIndicator)
         activityIndicator.startAnimating()
@@ -42,12 +42,15 @@ class BlogDetailVC: UIViewController {
         if let imageURL = URL(string: blog.blogImage) {
             
             let task = URLSession.shared.dataTask(with: imageURL) { (data, response, error) in
+                
                 if let error = error {
                     print("Error: \(error.localizedDescription)")
                     return
                 }
                 
-                if let data = data, let image = UIImage(data: data) {
+                if let data = data, 
+                    let image = UIImage(data: data) {
+                    
                     DispatchQueue.main.async { [self] in
                         bloDetailImageView.image = image
                         blogDetail.text = blog.blogDescription

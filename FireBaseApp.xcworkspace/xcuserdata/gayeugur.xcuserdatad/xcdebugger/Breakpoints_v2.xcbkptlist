@@ -3,4 +3,117 @@
    uuid = "0F1EBA23-0389-4E8F-964D-A5D0C9D6FFB6"
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2C1DD48A-8760-4A85-A348-4AD19DC13B0F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FireBaseApp/Screens/Controller/Map/MapViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
+            landmarkName = "mapView(_:didSelect:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "2C1DD48A-8760-4A85-A348-4AD19DC13B0F - fac3e13d17e4e0dc"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FireBaseApp.MapViewController.mapView(_: __C.MKMapView, didSelect: __C.MKAnnotationView) -&gt; ()"
+                  moduleName = "FireBaseApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gayeugur/Desktop/AllSwiftApps/GuiderApp/FireBaseApp/Screens/Controller/Map/MapViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "93"
+                  endingLineNumber = "93"
+                  offsetFromSymbolStart = "1152">
+               </Location>
+               <Location
+                  uuid = "2C1DD48A-8760-4A85-A348-4AD19DC13B0F - fac3e13d17e4e0dc"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FireBaseApp.MapViewController.mapView(_: __C.MKMapView, didSelect: __C.MKAnnotationView) -&gt; ()"
+                  moduleName = "FireBaseApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gayeugur/Desktop/AllSwiftApps/GuiderApp/FireBaseApp/Screens/Controller/Map/MapViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "93"
+                  endingLineNumber = "93"
+                  offsetFromSymbolStart = "1144">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E45DE750-EB1A-49EF-946C-3DE989ED9701"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "FireBaseApp/Screens/Controller/Map/MapViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
+            landmarkName = "mapView(_:didSelect:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "E45DE750-EB1A-49EF-946C-3DE989ED9701 - fac3e13d17e4e0fd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FireBaseApp.MapViewController.mapView(_: __C.MKMapView, didSelect: __C.MKAnnotationView) -&gt; ()"
+                  moduleName = "FireBaseApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gayeugur/Desktop/AllSwiftApps/GuiderApp/FireBaseApp/Screens/Controller/Map/MapViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "92"
+                  endingLineNumber = "92"
+                  offsetFromSymbolStart = "404">
+               </Location>
+               <Location
+                  uuid = "E45DE750-EB1A-49EF-946C-3DE989ED9701 - fac3e13d17e4e0fd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FireBaseApp.MapViewController.mapView(_: __C.MKMapView, didSelect: __C.MKAnnotationView) -&gt; ()"
+                  moduleName = "FireBaseApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gayeugur/Desktop/AllSwiftApps/GuiderApp/FireBaseApp/Screens/Controller/Map/MapViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "92"
+                  endingLineNumber = "92"
+                  offsetFromSymbolStart = "1132">
+               </Location>
+               <Location
+                  uuid = "E45DE750-EB1A-49EF-946C-3DE989ED9701 - dc409023e7149778"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (FireBaseApp.Place) -&gt; Swift.Bool in FireBaseApp.MapViewController.mapView(_: __C.MKMapView, didSelect: __C.MKAnnotationView) -&gt; ()"
+                  moduleName = "FireBaseApp"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gayeugur/Desktop/AllSwiftApps/GuiderApp/FireBaseApp/Screens/Controller/Map/MapViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "92"
+                  endingLineNumber = "92"
+                  offsetFromSymbolStart = "296">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

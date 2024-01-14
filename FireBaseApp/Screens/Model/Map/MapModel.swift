@@ -9,14 +9,9 @@ import FirebaseFirestore
 
 final class MapModel {
     
-    enum BlogResult {
-        case success([Place])
-        case failure(Error)
-    }
-    
-    func fetchBlogData(completion: @escaping (BlogResult) -> Void) {
+    func fetchBlogData(completion: @escaping (Constant.ResultCases<[Place]>) -> Void) {
         
-        Constant.fireStoreDatabase.collection("Place").getDocuments { (snapshot, error) in
+        DatabaseManager.shared.fireStoreDatabase.collection("Place").getDocuments { (snapshot, error) in
             if let error = error {
                 completion(.failure(error))
             } else if let snapshot = snapshot {
@@ -31,22 +26,27 @@ final class MapModel {
                        let price = document.get("price") as? Int,
                        let rate = document.get("rate") as? Int{
                         
-                        let loc = Place(image: image, name: locName, price: price, rate: rate, latitude: lat, longitude: long, details: detail)
+                        let loc = Place(image: image,
+                                        name: locName,
+                                        price: price,
+                                        rate: rate,
+                                        latitude: lat,
+                                        longitude: long,
+                                        details: detail)
                         fetchedLocations.append(loc)
                     }
                 }
                 completion(.success(fetchedLocations))
             } else {
-                let unknownError = NSError(domain: "Unknown", code: -1, userInfo: [NSLocalizedDescriptionKey: "Bilinmeyen bir hata oluştu"])
-                completion(.failure(unknownError))
+                completion(.failure(Helper.createGenericError()))
             }
         }
     }
     
     
-    func addToFavorites(place: Place, completion: @escaping (Constant.AddResultCases) -> Void) {
+    func addToFavorites(place: Place, completion: @escaping (Constant.ResultCases<Bool>) -> Void) {
         
-        let favoriteRef = Constant.fireStoreDatabase.collection("favoritePlaces").document()
+        let favoriteRef = DatabaseManager.shared.fireStoreDatabase.collection("favoritePlaces").document()
         
         let data: [String: Any] = [
             "image": (place.image ?? "") as String,
@@ -59,14 +59,10 @@ final class MapModel {
         
         favoriteRef.setData(data) { error in
             if error != nil {
-                completion(.success("Adding Success"))
+                completion(.success(true))
             } else {
-                let unknownError = NSError(domain: "Unknown", code: -1, userInfo: [NSLocalizedDescriptionKey: "Bilinmeyen bir hata oluştu"])
-                completion(.failure(unknownError))
+                completion(.failure(Helper.createGenericError()))
             }
         }
     }
-    
-    
-    
 }

@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol expandedProtocol {
+    func expandedClicked(index: Int)
+}
+
 class HelpCenterTableViewCell: UITableViewCell {
 
     //MARK: @IBOUTLET
@@ -17,8 +21,15 @@ class HelpCenterTableViewCell: UITableViewCell {
     @IBOutlet weak var imageViewHelpCenter: UIImageView!
     
     //MARK: PROPERTIES
-    var butttonClicked: (() -> (Void))!
+    
+    var indexPath: IndexPath?
+    var menu : Menu? {
+        didSet {
+            setText()
+        }
+    }
     var isExpanded = false
+    var delegate: expandedProtocol?
     
     //MARK: OVERRIDE FUNCTION
     override func awakeFromNib() {
@@ -46,7 +57,13 @@ class HelpCenterTableViewCell: UITableViewCell {
     
     @objc func imageTapped() {
         isExpanded = true
+        delegate?.expandedClicked(index: indexPath?.row ?? 0)
     }
-
+    
+    private func setText() {
+        titleLabel.text = menu?.name
+        labelDetail.text = menu?.detail
+    }
+   
     
 }

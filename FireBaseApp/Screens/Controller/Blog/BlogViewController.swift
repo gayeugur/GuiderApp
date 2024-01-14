@@ -23,7 +23,6 @@ class BlogViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initTableView()
-        blogTableView.isHidden = true
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -47,15 +46,18 @@ class BlogViewController: UIViewController {
     
     
     private func getFirebaseData() {
+        self.activityIndicator.startAnimating()
         blogViewModel.fetchBlogData { result in
             switch result {
             case .success(let blogs):
                 self.blogs = blogs
-                self.activityIndicator.stopAnimating()
                 self.blogTableView.reloadData()
-                self.blogTableView.isHidden = false
+                self.activityIndicator.stopAnimating()
             case .failure(let error):
-                Constant.makeAlert(on: self, titleInput: "Error", messageInput: error.localizedDescription)
+                self.activityIndicator.stopAnimating()
+                Helper.makeAlert(on: self,
+                                 titleInput: ConstantMessages.errorTitle,
+                                 messageInput: error.localizedDescription)
             }
         }
     }
@@ -73,9 +75,9 @@ extension BlogViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         cell.blog = blogs[indexPath.row]
-        DispatchQueue.main.async {
+      /*  DispatchQueue.main.async {
             cell.stackView.isHidden = false
-        }
+        }*/
         return cell
     }
     
@@ -87,6 +89,5 @@ extension BlogViewController: UITableViewDelegate {
         let vc = BlogDetailVC()
         vc.blog = blogs[indexPath.row]
         navigationController?.pushViewController(vc, animated: true)
-        
     }
 }

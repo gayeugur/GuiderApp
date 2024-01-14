@@ -7,8 +7,7 @@
 
 import UIKit
 
-class BookedViewController: UIViewController, UINavigationControllerDelegate {
-    
+class BookedViewController: UIViewController {
     
     //MARK: @IBOUTLET
     @IBOutlet weak var collectionView: UICollectionView!
@@ -17,14 +16,13 @@ class BookedViewController: UIViewController, UINavigationControllerDelegate {
     let bookedVM = BookedModel()
     let activityIndicator = UIActivityIndicatorView(style: .large)
     var isCameFromBooking = false
+    var bookedList: [Place] = []
     
     //MARK: LIFECYCLES
     override func viewDidLoad() {
         super.viewDidLoad()
         initTableView()
-        self.title = "Booked"
-        getData()
-        navigationController?.delegate = self
+        //navigationController?.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,9 +48,11 @@ class BookedViewController: UIViewController, UINavigationControllerDelegate {
     }
     
     private func initTableView() {
+        self.title = "Booked"
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: "BookedCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "bookedCell")
+        getData()
     }
     
     private func initActivityView() {
@@ -62,26 +62,18 @@ class BookedViewController: UIViewController, UINavigationControllerDelegate {
     }
     
     private func getData() {
-        bookedVM.fetchBookedPlaces()
-        observeEvent()
-    }
-    
-    func observeEvent() {
-        bookedVM.eventHandler = { [weak self] event in
-            guard let self else { return }
-            
-            switch event {
-            case .loading:
-                activityIndicator.startAnimating()
-            case .stopLoading:
-                break
-            case .dataLoaded:
-                DispatchQueue.main.async {
-                    self.activityIndicator.stopAnimating()
-                    self.collectionView.reloadData()
-                }
-            case .error(let error):
-                print(error ?? "ERROR")
+        self.activityIndicator.startAnimating()
+        bookedVM.fetchBookedPlaces() { result in
+            switch result {
+            case .success(let places):
+                self.bookedList = places
+                self.activityIndicator.stopAnimating()
+                self.collectionView.reloadData()
+            case .failure(let error):
+                self.activityIndicator.stopAnimating()
+                Helper.makeAlert(on: self,
+                                 titleInput: ConstantMessages.errorTitle,
+                                 messageInput: error.localizedDescription)
             }
         }
     }
@@ -96,7 +88,7 @@ extension BookedViewController: UICollectionViewDelegate {
 //MARK: UICollectionViewDataSource
 extension BookedViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return bookedVM.booked.count
+        return bookedList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -104,21 +96,19 @@ extension BookedViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "bookedCell", for: indexPath) as? BookedCollectionViewCell else {
             return UICollectionViewCell()
         }
-        cell.place = bookedVM.booked[indexPath.row]
-        DispatchQueue.main.async {
-            cell.view.isHidden = true
-        }
+        cell.place = bookedList[indexPath.row]
         return cell
     }
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 10
+        return 8
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 10
-    } 
+        return 0
+    }
     
 }
 
+extension BookedViewController: UINavigationControllerDelegate { }

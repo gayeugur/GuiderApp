@@ -11,33 +11,27 @@ import FirebaseStorage
 
 class BookingVM {
     
-    var bookedPlaces: [Place] = []
     
-    var eventHandler: ((_ event: Constant.Event) -> Void)?
-    
-    func fetchAllGuidersInPlace(placeName: String) {
-        self.eventHandler?(.loading)
-        let fireStoreDatabase = Firestore.firestore()
+    func fetchAllGuidersInPlace(placeName: String, completion: @escaping (Constant.ResultCases<[Place]>) -> Void) {
         
-        fireStoreDatabase.collection("BookedList").whereField("cityName", isEqualTo: placeName).getDocuments { [weak self] (snapshot, error) in
-            guard let self = self else { return }
+        DatabaseManager.shared.fireStoreDatabase.collection("BookedList").whereField("cityName", isEqualTo: placeName).getDocuments { [weak self] (snapshot, error) in
+            guard self != nil else { return }
             
             if let error = error {
-                self.eventHandler?(.error(error))
+                completion(.failure(error))
             } else {
                 guard let snapshot = snapshot else {
-                    self.eventHandler?(.dataLoaded)
+                    completion(.failure(Helper.createGenericError()))
                     return
                 }
-                
+                var bookedPlaces: [Place] = []
                 for document in snapshot.documents {
                     if let image = document.get("image") as? String, let date = document.get("date") as? String, let guiderName = document.get("guider") as? String, let price = document.get("price") as? Int, let rate = document.get("rate") as? Int   {
                         let place = Place(image: image, name: placeName, guider: guiderName, price: price, date: date, rate: rate)
                         bookedPlaces.append(place)
                     }
                 }
-                
-                self.eventHandler?(.dataLoaded)
+                completion(.success(bookedPlaces))
             }
         }
     }

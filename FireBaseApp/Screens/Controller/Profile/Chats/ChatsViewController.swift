@@ -13,30 +13,26 @@ class ChatsViewController: UIViewController {
     @IBOutlet weak var chatsTableView: UITableView!
     
     //MARK: PROPERTIES
+    public var completion: ((Chat) -> (Void))?
     let chatVM = ChatModel()
     let activityIndicator = UIActivityIndicatorView(style: .large)
+    var chatList: [Chat] = []
+    
     
     //MARK: LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
-        initTableView()
+        initUI()
         getData()
-        initNavBar()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        initActivityView()
     }
     
     //MARK: PRIVATE FUNCTION
-    private func initNavBar() {
+    private func initUI() {
         self.title = "Chats"
-    }
-    
-    private func initActivityView() {
         activityIndicator.center = view.center
         view.addSubview(activityIndicator)
         activityIndicator.startAnimating()
+        initTableView()
     }
     
     private func initTableView() {
@@ -47,44 +43,36 @@ class ChatsViewController: UIViewController {
     }
     
     private func getData() {
-        chatVM.fetchChatList()
-        observeEvent()
-    }
-    
-    //MARK: FUNCTION
-    func observeEvent() {
-        chatVM.eventHandler = { [weak self] event in
-            guard let self else { return }
-
-            switch event {
-            case .loading:
-                activityIndicator.startAnimating()
-            case .stopLoading:
-                break
-            case .dataLoaded:
-                DispatchQueue.main.async {
-                    self.activityIndicator.stopAnimating()
-                    self.chatsTableView.reloadData()
-                }
-            case .error(let error):
-                print(error ?? "ERROR")
+        self.activityIndicator.startAnimating()
+        chatVM.fetchChatList() { result in
+            switch result {
+            case .success(let chats):
+                self.chatList = chats
+                self.activityIndicator.stopAnimating()
+                self.chatsTableView.reloadData()
+            case .failure(let error):
+                self.activityIndicator.stopAnimating()
+                Helper.makeAlert(on: self,
+                                 titleInput: ConstantMessages.errorTitle,
+                                 messageInput: error.localizedDescription)
             }
         }
     }
-  
+    
+    
 }
 
 //MARK: EXTENSION UITableViewDataSource
 extension ChatsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return chatVM.chatList.count
+        return chatList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "chatCell") as? ChatTableViewCell else {
             return UITableViewCell()
         }
-        cell.chat =  chatVM.chatList[indexPath.row]
+        cell.chat =  chatList[indexPath.row]
         return cell
     }
     
@@ -95,4 +83,15 @@ extension ChatsViewController: UITableViewDataSource {
 }
 
 //MARK: EXTENSION UITableViewDelegate
-extension ChatsViewController: UITableViewDelegate {}
+extension ChatsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) {
+             cell.contentView.backgroundColor = UIColor(hex: 0xD6EAF8)
+         }
+         tableView.deselectRow(at: indexPath, animated: true)
+        let selectedChat = chatList[indexPath.row]
+        dismiss(animated: true, completion: { [weak self] in
+            self?.completion?(selectedChat)
+        })
+    }
+}

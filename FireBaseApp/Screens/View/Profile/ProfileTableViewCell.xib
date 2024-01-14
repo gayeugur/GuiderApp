@@ -4,7 +4,6 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -18,20 +17,20 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1kX-qj-Q8D">
-                        <rect key="frame" x="30" y="0.0" width="290" height="100"/>
+                        <rect key="frame" x="30" y="10" width="270" height="80"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="kPE-Aa-Ovg">
-                                <rect key="frame" x="20" y="0.0" width="250" height="100"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="kPE-Aa-Ovg">
+                                <rect key="frame" x="-10" y="0.0" width="260" height="80"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lFp-JM-28o">
-                                        <rect key="frame" x="0.0" y="25" width="30" height="50"/>
+                                        <rect key="frame" x="0.0" y="15" width="30" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="35c-Vn-SzF"/>
                                             <constraint firstAttribute="width" constant="30" id="fp7-ZL-ydn"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vTb-Hx-gJc">
-                                        <rect key="frame" x="50" y="40" width="200" height="20.333333333333329"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vTb-Hx-gJc">
+                                        <rect key="frame" x="60" y="30" width="200" height="20.333333333333329"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="200" id="riR-Lx-7pk"/>
                                         </constraints>
@@ -42,33 +41,31 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.97254902119999997" green="0.83137255909999996" blue="0.79607844350000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="kPE-Aa-Ovg" secondAttribute="trailing" constant="20" id="2yb-o0-faR"/>
                             <constraint firstAttribute="bottom" secondItem="kPE-Aa-Ovg" secondAttribute="bottom" id="SC9-MD-eix"/>
                             <constraint firstItem="kPE-Aa-Ovg" firstAttribute="top" secondItem="1kX-qj-Q8D" secondAttribute="top" id="ah6-yO-5fZ"/>
-                            <constraint firstItem="kPE-Aa-Ovg" firstAttribute="leading" secondItem="1kX-qj-Q8D" secondAttribute="leading" constant="20" id="mka-Fq-Q0B"/>
                         </constraints>
                     </view>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="1kX-qj-Q8D" secondAttribute="bottom" id="IdW-ks-9Io"/>
+                    <constraint firstAttribute="bottom" secondItem="1kX-qj-Q8D" secondAttribute="bottom" constant="10" id="IdW-ks-9Io"/>
                     <constraint firstItem="1kX-qj-Q8D" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="Iy1-LR-BfA"/>
-                    <constraint firstAttribute="trailing" secondItem="1kX-qj-Q8D" secondAttribute="trailing" id="cOQ-Jy-fys"/>
-                    <constraint firstItem="1kX-qj-Q8D" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="xtt-yK-AgU"/>
+                    <constraint firstAttribute="trailing" secondItem="1kX-qj-Q8D" secondAttribute="trailing" constant="20" id="rWj-Cb-2wH"/>
+                    <constraint firstItem="1kX-qj-Q8D" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="xtt-yK-AgU"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="iconImageView" destination="lFp-JM-28o" id="U60-I7-vCu"/>
                 <outlet property="menuText" destination="vTb-Hx-gJc" id="Sua-Vn-V3b"/>
+                <outlet property="profileView" destination="1kX-qj-Q8D" id="QcD-HB-U6g"/>
+                <outlet property="proifleContentView" destination="H2p-sc-9uM" id="JGn-AZ-p44"/>
             </connections>
             <point key="canvasLocation" x="88.549618320610676" y="22.535211267605636"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-    </resources>
 </document>

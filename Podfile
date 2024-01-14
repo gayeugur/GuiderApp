@@ -13,6 +13,7 @@ pod 'Firebase'
 pod 'FirebaseCore'
 pod 'Firebase/Storage'
 pod 'Kingfisher'
+pod 'FirebaseDatabase'
 
   target 'FireBaseAppTests' do
     inherit! :search_paths

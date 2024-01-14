@@ -10,6 +10,7 @@ import UIKit
 class BookingVC: UIViewController, UINavigationControllerDelegate {
     
     //MARK: @IBOUTLET
+    @IBOutlet weak var bookedButton: UIButton!
     @IBOutlet weak var dateTF: UITextField!
     @IBOutlet weak var continueButton: UIButton!
     @IBOutlet weak var guiderImageView: UIImageView!
@@ -27,18 +28,21 @@ class BookingVC: UIViewController, UINavigationControllerDelegate {
     @IBOutlet weak var guiderPicker: UIPickerView!
     @IBOutlet weak var detailView: UIView!
     
+    @IBOutlet weak var carView: UIView!
+    @IBOutlet weak var totalView: UIView!
+    @IBOutlet weak var shipView: UIView!
+    
     //MARK: PROPERTIES
     let datePicker = UIDatePicker()
     var tapGesture: UITapGestureRecognizer!
-    
     let bookingVM = BookingVM()
     var favoritePlacesVM = PlaceModel()
     var place: Place?
-    
     let activityIndicator = UIActivityIndicatorView(style: .large)
     var isCarSelected = true
     var isShipSelected = true
     var data: [String] = []
+    var bookedPlaces: [Place] = []
     
     var selectedOption: String? = "" {
         didSet {
@@ -59,99 +63,111 @@ class BookingVC: UIViewController, UINavigationControllerDelegate {
     //MARK: LIFECYCLES
     override func viewDidLoad() {
         super.viewDidLoad()
-        tabBarController?.tabBar.isHidden = true
-        guiderPicker.delegate = self
-        guiderPicker.dataSource = self
-        setupDatePicker()
-        setupTapGesture()
-        setupText()
-        initActivityView()
+        configure()
         getAllGuider()
-        title = place?.name
-        
-        initActivityView()
-        navigationController?.delegate = self
     }
     
     //MARK: FUNCTIONS
-    
-    
-    private func initActivityView() {
+    private func configure() {
+        title = place?.name
+        tabBarController?.tabBar.isHidden = true
+        guiderPicker.delegate = self
+        guiderPicker.dataSource = self
+        navigationController?.delegate = self
         activityIndicator.center = detailView.center
         detailView.addSubview(activityIndicator)
         activityIndicator.startAnimating()
+        bookedButton.layer.cornerRadius = 12
+        setUI()
+        setupDatePicker()
+        setupTapGesture()
+        setupText()
+    }
+    
+    private func setUI() {
         guiderName.isHidden = true
         guiderPrice.isHidden = true
         guiderRate.isHidden = true
+        dateTF.layer.cornerRadius = 12.0
+        guiderPicker.layer.cornerRadius = 12.0
+        carView.layer.cornerRadius = 12.0
+        totalView.layer.cornerRadius = 12.0
+        shipView.layer.cornerRadius = 12.0
     }
     
     private func getAllGuider() {
-        self.favoritePlacesVM.fetchAllGuidersInPlace(placeName: place?.name ?? "") { [weak self] success in
+        guard let placeName = place?.name else { return }
+        self.favoritePlacesVM.fetchAllGuidersInPlace(placeName: placeName) { [weak self] success in
             guard let self = self else { return }
             if success {
-                
                 data.append(contentsOf: favoritePlacesVM.allGuidersInPlace)
                 selectedOption = data.first
                 guiderPicker.reloadAllComponents()
                 
             } else {
-                Constant.makeAlert(on: self, titleInput: "Rehberler", messageInput: "Guider bulunamadı")
+                Helper.makeAlert(on: self,
+                                 titleInput: ConstantMessages.guiderTitle,
+                                 messageInput: ConstantMessages.genericErrorNotFound)
                 
             }
         }
     }
     
-    func setupText() {
+    private func setupText() {
         guiderName.text = selectedOption
         addCarLabel.text = "Add Car"
         carPriceLabel.text = "$30"
         addShipLabel.text = "Add Ship"
         shipPriceLabel.text = "$40"
-        let price = calculateTotalCost()
+        _ = calculateTotalCost()
         
-        bookingVM.fetchAllGuidersInPlace(placeName: place?.name ?? "")
-        observeEvent()
-    }
-    
-    func observeEvent() {
-        bookingVM.eventHandler = { [weak self] event in
-            guard let self else { return }
-            switch event {
-            case .loading:
-                activityIndicator.startAnimating()
-            case .stopLoading:
-                break
-            case .dataLoaded:
-                DispatchQueue.main.async {
-                    self.activityIndicator.stopAnimating()
-                    self.setupAllData()
-                }
-            case .error(let error):
-                print(error ?? "ERROR")
+        self.activityIndicator.startAnimating()
+        bookingVM.fetchAllGuidersInPlace(placeName: place?.name ?? "") { result in
+            
+            switch result {
+            case .success(let places):
+                self.bookedPlaces = places
+                self.activityIndicator.stopAnimating()
+                self.setupAllData()
+            case .failure(let error):
+                self.activityIndicator.stopAnimating()
+                Helper.makeAlert(on: self,
+                                 titleInput: ConstantMessages.errorTitle,
+                                 messageInput: error.localizedDescription)
             }
+            
         }
     }
     
-    func setupAllData() {
+    
+    private func setData(place: Place, image: UIImage) {
+        self.guiderName.text = self.favoritePlacesVM.allGuidersInPlace.first
+        self.guiderImageView.image = image
+        self.guiderPrice.text = String(place.price ?? 0)
+        self.guiderRate.text = String(place.rate ?? 0)
+        guiderName.isHidden = false
+        guiderPrice.isHidden = false
+        guiderRate.isHidden = false
+        activityIndicator.stopAnimating()
+    }
+    
+    private func setupAllData() {
         
-        if let imageString = place?.image, let imageURL = URL(string: imageString) {
-            
+        if let imageString = place?.image,
+           let imageURL = URL(string: imageString) {
             let task = URLSession.shared.dataTask(with: imageURL) { (data, response, error) in
-                if let error = error {
-                    print("Error: \(error.localizedDescription)")
+                if error != nil {
+                    Helper.makeAlert(on: self,
+                                     titleInput: ConstantMessages.errorTitle,
+                                     messageInput: ConstantMessages.genericError)
                     return
                 }
                 
-                if let data = data, let image = UIImage(data: data) {
+                if let data = data,
+                   let image = UIImage(data: data) {
+                    guard let place = self.place else { return }
                     DispatchQueue.main.async { [self] in
-                        self.guiderName.text = self.favoritePlacesVM.allGuidersInPlace.first
-                        self.guiderImageView.image = image
-                        self.guiderPrice.text = String(place?.price ?? 0)
-                        self.guiderRate.text = String(place?.rate ?? 0)
-                        guiderName.isHidden = false
-                        guiderPrice.isHidden = false
-                        guiderRate.isHidden = false
-                        activityIndicator.stopAnimating()
+                        setData(place: place, image: image)
                     }
                 }
             }
@@ -159,7 +175,7 @@ class BookingVC: UIViewController, UINavigationControllerDelegate {
         }
     }
     
-    func setupDatePicker() {
+    private func setupDatePicker() {
         datePicker.datePickerMode = .date
         datePicker.addTarget(self, action: #selector(dateChange(datePicker:)), for: .valueChanged)
         datePicker.frame.size = CGSize(width: 0, height: 300)
@@ -167,16 +183,22 @@ class BookingVC: UIViewController, UINavigationControllerDelegate {
         datePicker.minimumDate = Date()
         datePicker.maximumDate =  Calendar.current.date(byAdding: .year, value: 2, to: Date())
         dateTF.inputView = datePicker
-        dateTF.text = Constant.formatDate(date: Date())
+        dateTF.text = Helper.formatDate(date: Date())
     }
     
-    func setupTapGesture() {
+    private func setupTapGesture() {
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissDatePicker))
         view.addGestureRecognizer(tapGesture)
     }
     
+    private func calculateTotalCost() -> Int? {
+        let totalCost = (isCarSelected ? 30 : 0) + (isShipSelected ? 40 : 0)
+        totalPriceLabel.text = "$ \(totalCost)"
+        return totalCost
+    }
+    
     @objc func dateChange(datePicker: UIDatePicker) {
-        dateTF.text = Constant.formatDate(date: datePicker.date)
+        dateTF.text = Helper.formatDate(date: datePicker.date)
     }
     
     @objc func dismissDatePicker() {
@@ -188,65 +210,47 @@ class BookingVC: UIViewController, UINavigationControllerDelegate {
     
     @IBAction func continueButtonAction(_ sender: Any) {
         let price = calculateTotalCost()
-        if let image = place?.image,
-           let name = place?.name,
+        guard let place = place else { return }
+        if let image = place.image,
+           let name = place.name,
            let guider = self.selectedOption,
            let price = price ,
            let date = self.dateTF.text,
-           let rate = place?.rate {
+           let rate = place.rate {
             let place = Place(image: image, name: name, guider: guider, price: price, date: date, rate: rate)
             self.bookingVM.addBlogData(place: place)
-            Constant.makeAlert(on: self, titleInput: "Success", messageInput: "") {
+            Helper.makeAlert(on: self,
+                             titleInput: ConstantMessages.successTitle,
+                             messageInput: ConstantMessages.successDetail) {
                 let vc = BookedViewController()
                 vc.isCameFromBooking = true
                 RouterManager.shared.currentNavigationController?.pushViewController(vc, animated: true)
             }
         } else {
-            Constant.makeAlert(on: self, titleInput: "Beklenmeyen bir hata oluştu", messageInput: "")
+            Helper.makeAlert(on: self,
+                             titleInput: ConstantMessages.errorTitle,
+                             messageInput: ConstantMessages.genericError)
         }
     }
     
     @IBAction func addCarAction(_ sender: Any) {
-        isCarSelected = !isCarSelected // Durumu tersine çevir
+        isCarSelected = !isCarSelected
         
-        if isCarSelected {
-            let image = UIImage(systemName: "checkmark.seal.fill")
-            addCarCheckBox.setImage(image, for: .normal)
-        } else {
-            let image = UIImage(systemName: "checkmark.seal")
-            addCarCheckBox.setImage(image, for: .normal)
-        }
-        
+        let image = isCarSelected ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "checkmark.circle")
+        addCarCheckBox.setImage(image, for: .normal)
         carPriceLabel.text = isCarSelected ? "$30" : "$0"
-        calculateTotalCost()
+        _ = calculateTotalCost()
     }
     
     @IBAction func addShipAction(_ sender: Any) {
-        isShipSelected = !isShipSelected // Durumu tersine çevir
+        isShipSelected = !isShipSelected
         
-        if isShipSelected {
-            let image = UIImage(systemName: "checkmark.seal.fill")
-            addShipCheckBox.setImage(image, for: .normal)
-        } else {
-            let image = UIImage(systemName: "checkmark.seal")
-            addShipCheckBox.setImage(image, for: .normal)
-        }
-        
+        let image = isShipSelected ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "checkmark.circle")
+        addShipCheckBox.setImage(image, for: .normal)
         shipPriceLabel.text = isShipSelected ? "$40" : "$0"
-        calculateTotalCost()
+        _ = calculateTotalCost()
     }
     
-    func calculateTotalCost() -> Int? {
-        var totalCost = 0
-        if isCarSelected {
-            totalCost += 30
-        }
-        if isShipSelected {
-            totalCost += 40
-        }
-        totalPriceLabel.text = "$ \(totalCost)"
-        return totalCost
-    }
     
 }
 // MARK: - UIPickerViewDelegate

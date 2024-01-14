@@ -61,6 +61,7 @@
                         </constraints>
                     </view>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="0Mh-8B-Ma5" secondAttribute="bottom" constant="10" id="Byz-yd-bQ8"/>
                     <constraint firstAttribute="trailing" secondItem="0Mh-8B-Ma5" secondAttribute="trailing" constant="15" id="CyO-ra-KeH"/>
@@ -69,6 +70,7 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="chatImageView" destination="KXv-Qs-7p7" id="tuC-7a-0tR"/>
                 <outlet property="descLabel" destination="gqK-tI-lHW" id="W3c-QA-7hO"/>
@@ -81,7 +83,7 @@
     </objects>
     <resources>
         <systemColor name="systemGreenColor">
-            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

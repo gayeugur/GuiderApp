@@ -15,102 +15,123 @@ class FavoritesViewController: UIViewController {
     //MARK: PROPERTIES
     let activityIndicator = UIActivityIndicatorView(style: .large)
     var favoritePlacesVM = PlaceModel()
+    var favoritePlaces: [Place] = []
     
     //MARK: LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
-        initTableView()
+        configure()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        favoritePlacesVM.favoriPlaces.removeAll()
         getFirebaseData()
-        setTableViewConfigure()
-        self.title = "Favorites"
     }
     
     //MARK: PRIVATE FUNCTION
-    private func initTableView() {
+    private func configure() {
+        self.title = "Favorites"
         favoritesTableView.dataSource = self
         favoritesTableView.delegate = self
         favoritesTableView.register(UINib(nibName: "FavoritesTableViewCell", bundle: nil), forCellReuseIdentifier: "favoritesCell")
+        favoritesTableView.separatorStyle = .none
     }
-
+    
     private func setTableViewConfigure() {
         favoritesTableView.reloadData()
-        favoritesTableView.separatorStyle = .none
         activityIndicator.center = view.center
         view.addSubview(activityIndicator)
         activityIndicator.startAnimating()
     }
     
     private func getFirebaseData() {
-        favoritePlacesVM.fetchFavoritePlaces()
-        observeEvent()
-    }
-    
-    private func observeEvent() {
-        favoritePlacesVM.eventHandler = { [weak self] event in
-            guard let self else { return }
-            switch event {
-            case .loading:
-                activityIndicator.startAnimating()
-            case .stopLoading:
-                break
-            case .dataLoaded:
-                DispatchQueue.main.async {
-                    self.activityIndicator.stopAnimating()
-                    self.favoritesTableView.reloadData()
-                }
-            case .error(let error):
-                print(error ?? "ERROR")
+        favoritePlaces.removeAll()
+        self.activityIndicator.startAnimating()
+        favoritePlacesVM.fetchFavoritePlaces() { result in
+            switch result {
+            case .success(let places):
+                self.favoritePlaces = places
+                self.activityIndicator.stopAnimating()
+                self.favoritesTableView.reloadData()
+                
+            case .failure(let error):
+                self.activityIndicator.stopAnimating()
+                Helper.makeAlert(on: self,
+                                 titleInput: ConstantMessages.errorTitle,
+                                 messageInput: error.localizedDescription)
             }
         }
+        setTableViewConfigure()
+    }
+    
+    
+    
+    private func createPlace(placeNumber index: Int) -> Place {
+        return Place(image: favoritePlaces[index].image ?? "",
+                     name: favoritePlaces[index].name ?? "",
+                     rate: favoritePlaces[index].rate  ?? 0,
+                     price: favoritePlaces[index].price ?? 0)
     }
 }
 
 //MARK: EXTENSION UITableViewDataSource
 extension FavoritesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return favoritePlacesVM.favoriPlaces.count
+        return favoritePlaces.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "favoritesCell") as? FavoritesTableViewCell else {
             return UITableViewCell()
         }
-        cell.place = favoritePlacesVM.favoriPlaces[indexPath.row]
-        DispatchQueue.main.async {
-            cell.guidersButton.isHidden = false
-            cell.bookButton.isHidden = false
-        }
+        cell.place = favoritePlaces[indexPath.row]
+        
+        //when click Show Guiders button
         cell.showGuidersAction = {
-            
-            self.favoritePlacesVM.fetchAllGuidersInPlace(placeName: self.favoritePlacesVM.favoriPlaces[indexPath.row].name ?? "") { [weak self] success in
+            guard let placeName = self.favoritePlaces[indexPath.row].name else { return }
+            self.favoritePlacesVM.fetchAllGuidersInPlace(placeName: placeName) { [weak self] success in
                 guard let self = self else { return }
-                   if success {
-                       self.observeEvent()
-                       print(self.favoritePlacesVM.allGuidersInPlace)
-                       let arrayText = self.favoritePlacesVM.allGuidersInPlace.map { String($0) }.joined(separator: ", ")
-                       Constant.makeAlert(on: self, titleInput: "Rehberler", messageInput: arrayText)
-                       activityIndicator.stopAnimating()
-                   } else {
-                       Constant.makeAlert(on: self, titleInput: "Rehberler", messageInput: "Guider bulunamadı")
-                       activityIndicator.stopAnimating()
-                   }
+                switch success {
+                    
+                case true:
+                   // self.observeEvent()
+                    let guidersList = self.favoritePlacesVM.allGuidersInPlace.map { String($0)
+                    }.joined(separator: ", ")
+                    Helper.makeAlert(on: self,
+                                     titleInput: ConstantMessages.guiderTitle,
+                                     messageInput: guidersList)
+                    activityIndicator.stopAnimating()
+                    
+                case false:
+                    Helper.makeAlert(on: self,
+                                     titleInput: ConstantMessages.guiderTitle,
+                                     messageInput: ConstantMessages.genericErrorNotFound)
+                    activityIndicator.stopAnimating()
+                }
             }
-
+            
         }
+        //when click Book button
         cell.bookedAction = {
-            let place = Place(image: self.favoritePlacesVM.favoriPlaces[indexPath.row].image ?? "", name: self.favoritePlacesVM.favoriPlaces[indexPath.row].name ?? "", rate: self.favoritePlacesVM.favoriPlaces[indexPath.row].rate  ?? 0, price: self.favoritePlacesVM.favoriPlaces[indexPath.row].price ?? 0)
-            let vc = BookingVC(place: place)
+            let selectedPlace = self.createPlace(placeNumber: indexPath.row)
+            let vc = BookingVC(place: selectedPlace)
             RouterManager.shared.currentNavigationController?.pushViewController(vc, animated: true)
         }
         return cell
     }
-  
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 130
+    }
+    
     
 }
 //MARK: EXTENSION UITableViewDelegate
-extension FavoritesViewController: UITableViewDelegate { }
+extension FavoritesViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let cell = tableView.cellForRow(at: indexPath) {
+             cell.contentView.backgroundColor = UIColor(hex: 0xD6EAF8)
+         }
+         tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
 

@@ -17,16 +17,16 @@ class ViewController: UIViewController {
     @IBOutlet weak var passwordText: UITextField!
     @IBOutlet weak var rePasswordText: UITextField!
     @IBOutlet weak var nextButton: UIButton!
+    @IBOutlet weak var userNameTextField: UITextField!
     
     //MARK: PROPERTIES
     var isLogin = true
+    let userModel = UserModel()
     
     //MARK: LIFECYCLES
     override func viewDidLoad() {
         super.viewDidLoad()
         setup()
-        navigationController?.setNavigationBarHidden(true, animated: true)
-        tabBarController?.tabBar.isHidden = true
         mailText.text = "gayeugur00@gmail.com"
         passwordText.text = "123123"
     }
@@ -34,12 +34,14 @@ class ViewController: UIViewController {
     //MARK: PRIVATE FUNCTION
     private func isLoginHidden() {
         rePasswordText.isHidden = true
+        userNameTextField.isHidden = true
         isLogin = true
         nextButton.setTitle("Sign In", for: .normal)
     }
     
     private func isNotUser() {
         rePasswordText .isHidden = false
+        userNameTextField.isHidden = false
         isLogin = false
         nextButton?.setTitle("Sign Up", for: .normal)
     }
@@ -50,6 +52,8 @@ class ViewController: UIViewController {
         isLoginHidden()
         nextButton?.layer.cornerRadius = 20
         nextButton?.setTitle("Sign In", for: .normal)
+        navigationController?.setNavigationBarHidden(true, animated: true)
+        tabBarController?.tabBar.isHidden = true
     }
     
     //MARK: @IBACTION
@@ -60,7 +64,9 @@ class ViewController: UIViewController {
         case 1 :
             isNotUser()
         default:
-            print("Default case")
+            Helper.makeAlert(on: self,
+                             titleInput: ConstantMessages.errorTitle,
+                             messageInput: ConstantMessages.serviceError)
         }
     }
     
@@ -68,43 +74,87 @@ class ViewController: UIViewController {
         
         if isLogin {
             if let mail = mailText.text, let password = passwordText.text {
-                
-                Auth.auth().signIn(withEmail: mail, password: password) { (authdata, error) in
-                    if error != nil {
-                        Constant.makeAlert(on: self, titleInput: "Error!", messageInput: error?.localizedDescription ?? "Error")
-                        
-                    } else {
-                        let user = User(password: password, mail: mail)
+                userModel.setUserWithAllInformation(email: mail, password: password) { result in
+                    switch result {
+                    case .success(let user):
+                        if user.isActive ?? false {
+                            
+                            Helper.makeAlert(on: self,
+                                             titleInput: ConstantMessages.errorTitle,
+                                             messageInput: ConstantMessages.isActiveError)
+                            return
+                        }
                         UserManager.shared.setUser(user: user)
-                        print("successs")
-                        self.performSegue(withIdentifier:"toHome" , sender: nil)
+                        self.setStatus()
+                        
+                    case .failure(let error):
+                        Helper.makeAlert(on: self,
+                                         titleInput: ConstantMessages.errorTitle,
+                                         messageInput: error.localizedDescription)
                     }
                 }
                 
-                
             } else {
-                Constant.makeAlert(on: self, titleInput: "Error!", messageInput: "Username/Password?")
+                Helper.makeAlert(on: self,
+                                 titleInput: ConstantMessages.errorTitle,
+                                 messageInput: ConstantMessages.loginError)
                 
             }
             
         } else {
-            if let mail = mailText.text, let password = passwordText.text, let rePassword = rePasswordText.text, password == rePassword {
+            if let mail = mailText.text,
+               let password = passwordText.text,
+               let rePassword = rePasswordText.text,
+               password == rePassword,
+               let userName = userNameTextField.text {
                 Auth.auth().createUser(withEmail: mail, password: password) { (authdata, error) in
                     
                     if error != nil {
-                        Constant.makeAlert(on: self, titleInput: "Error!", messageInput: error?.localizedDescription ?? "Error")
+                        Helper.makeAlert(on: self,
+                                         titleInput: ConstantMessages.errorTitle,
+                                         messageInput: error?.localizedDescription ?? ConstantMessages.genericError)
                     } else {
-                        self.performSegue(withIdentifier:"toHome" , sender: nil)
+                        let user = User(username:userName, password: password , mail: mail)
+                        UserManager.shared.setUser(user: user)
+                        self.userModel.updateActiveStatus(isActive: true) {
+                            result in
+                            switch result {
+                            case .success(_):
+                                self.userModel.addUser(user: user)
+                                self.performSegue(withIdentifier:"toHome" , sender: nil)
+                            case .failure(_):
+                                Helper.makeAlert(on: self,
+                                                 titleInput: ConstantMessages.errorTitle,
+                                                 messageInput: error?.localizedDescription ?? ConstantMessages.genericError)
+                            }
+                        }
+            
                     }
                 }
                 
             } else {
-                Constant.makeAlert(on: self, titleInput: "Error!", messageInput: "Username/Password?")
+                Helper.makeAlert(on: self,
+                                 titleInput: ConstantMessages.errorTitle,
+                                 messageInput: ConstantMessages.isActiveError)
             }
         }
         
     }
     
+    
+    func setStatus() {
+        userModel.updateActiveStatus(isActive: true) { result in
+            switch result {
+            case .success(_):
+                self.performSegue(withIdentifier:"toHome", sender: nil)
+            case .failure(let error):
+                Helper.makeAlert(on: self,
+                                 titleInput: ConstantMessages.errorTitle,
+                                 messageInput: error.localizedDescription)
+            }
+            
+        }
+    }
     
 }
 

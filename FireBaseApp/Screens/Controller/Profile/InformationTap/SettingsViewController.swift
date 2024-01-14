@@ -24,7 +24,6 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initUI()
-        tabBarController?.tabBar.isHidden = false
     }
     
     //MARK: PRIVATE FUNCTION
@@ -33,6 +32,7 @@ class SettingsViewController: UIViewController {
         mailView.layer.cornerRadius = 24
         self.title = "Settings"
         mailLabel.text = UserManager.shared.currentUser?.mail
+        tabBarController?.tabBar.isHidden = false
     }
     
     private func checkPasswordValidate() -> Bool {
@@ -42,31 +42,46 @@ class SettingsViewController: UIViewController {
         return false
     }
     
+    private func resetInformation() {
+        self.oldPassword.text = ""
+        self.newPassword.text = ""
+        self.reNewPassword.text = ""
+    }
     
     //MARK: @IBACTION
     @IBAction func saveAction(_ sender: Any) {
         if let oldPass = oldPassword.text {
             if oldPass != UserManager.shared.currentUser?.password {
-                Constant.makeAlert(on: self, titleInput: "Error", messageInput: "Not same password") // eski şifre ve yazılan eski şifre şifre farklı
+                Helper.makeAlert(on: self,
+                                 titleInput: ConstantMessages.errorTitle,
+                                 messageInput:ConstantMessages.oldPasswordError)
             } else if (!checkPasswordValidate()) {
-                Constant.makeAlert(on: self, titleInput: "Error", messageInput: "Your password should be 6 character")
+                Helper.makeAlert(on: self,
+                                 titleInput: ConstantMessages.errorTitle,
+                                 messageInput: ConstantMessages.lenghtPasswordError)
             } else if reNewPassword.text != newPassword.text {
-                Constant.makeAlert(on: self, titleInput: "Error", messageInput: "Check the information you entered")
+                Helper.makeAlert(on: self,
+                                 titleInput: ConstantMessages.errorTitle,
+                                 messageInput: ConstantMessages.rePasswordError)
             } else {
                 viewModel.updateUserPassword(newPassword: newPassword.text ?? "") { result in
                     switch result {
                     case .success:
-                        Constant.makeAlert(on: self, titleInput: "Success", messageInput: "")
-                        self.oldPassword.text = ""
-                        self.newPassword.text = ""
-                        self.reNewPassword.text = ""
+                        Helper.makeAlert(on: self,
+                                         titleInput: ConstantMessages.successTitle,
+                                         messageInput: ConstantMessages.successDetail)
+                        self.resetInformation()
                     case .failure(let error):
-                        Constant.makeAlert(on: self, titleInput: "Error", messageInput: error.localizedDescription)
+                        Helper.makeAlert(on: self,
+                                         titleInput: ConstantMessages.errorTitle,
+                                         messageInput: error.localizedDescription)
                     }
                 }
             }
         } else {
-            Constant.makeAlert(on: self, titleInput: "Error", messageInput: "Check the information you entered")
+            Helper.makeAlert(on: self,
+                             titleInput: ConstantMessages.errorTitle,
+                             messageInput: ConstantMessages.genericLoginError)
         }
     }
     

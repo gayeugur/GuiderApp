@@ -24,7 +24,7 @@
 		A474743C2AF038D1006E9296 /* BookedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A474743B2AF038D1006E9296 /* BookedModel.swift */; };
 		A47474412AF03A7E006E9296 /* BookedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A474743F2AF03A7E006E9296 /* BookedCollectionViewCell.swift */; };
 		A47474422AF03A7E006E9296 /* BookedCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A47474402AF03A7E006E9296 /* BookedCollectionViewCell.xib */; };
-		A485C12D2AED78DB005C0F6A /* HelpCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A485C12C2AED78DB005C0F6A /* HelpCenter.swift */; };
+		A485C12D2AED78DB005C0F6A /* HelpCenterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A485C12C2AED78DB005C0F6A /* HelpCenterModel.swift */; };
 		A485C1332AED8CC5005C0F6A /* ChatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A485C1312AED8CC5005C0F6A /* ChatsViewController.swift */; };
 		A485C1342AED8CC5005C0F6A /* ChatsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A485C1322AED8CC5005C0F6A /* ChatsViewController.xib */; };
 		A485C1382AED8D4A005C0F6A /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A485C1362AED8D4A005C0F6A /* ChatTableViewCell.swift */; };
@@ -49,8 +49,17 @@
 		A48B34E92ADC7AB200FC434D /* ProfileTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A48B34E72ADC7AB200FC434D /* ProfileTableViewCell.xib */; };
 		A48B78AA2B0D45E100C6D3B6 /* BookingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48B78A82B0D45E100C6D3B6 /* BookingVC.swift */; };
 		A48B78AB2B0D45E100C6D3B6 /* BookingVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = A48B78A92B0D45E100C6D3B6 /* BookingVC.xib */; };
+		A48E1CDA2B4FEE480056C96D /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48E1CD82B4FEE480056C96D /* MessageCell.swift */; };
+		A48E1CDB2B4FEE480056C96D /* MessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A48E1CD92B4FEE480056C96D /* MessageCell.xib */; };
+		A48E2CC82B53E83D00A651E2 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48E2CC72B53E83D00A651E2 /* UIColor.swift */; };
+		A49104492B545D6600E59CCA /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A49104482B545D6600E59CCA /* UIImage.swift */; };
 		A4A955132AD3EF2000F8E9FC /* AddBlogViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A955122AD3EF1F00F8E9FC /* AddBlogViewController.swift */; };
 		A4BCB8832AE1932D00FFA54A /* RouterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4BCB8822AE1932D00FFA54A /* RouterManager.swift */; };
+		A4C29CC32B4F170E006D1693 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4C29CC12B4F170E006D1693 /* ChatViewController.swift */; };
+		A4C29CC42B4F170E006D1693 /* ChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4C29CC22B4F170E006D1693 /* ChatViewController.xib */; };
+		A4D4FF452B51C5270012C3E3 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D4FF442B51C5270012C3E3 /* Helper.swift */; };
+		A4D4FF472B51C57A0012C3E3 /* ConstantMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D4FF462B51C57A0012C3E3 /* ConstantMessages.swift */; };
+		A4D4FF492B51C8320012C3E3 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D4FF482B51C8320012C3E3 /* DatabaseManager.swift */; };
 		A4D6D2FA2ACF35EC000C952A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D6D2F92ACF35EC000C952A /* AppDelegate.swift */; };
 		A4D6D2FC2ACF35EC000C952A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D6D2FB2ACF35EC000C952A /* SceneDelegate.swift */; };
 		A4D6D2FE2ACF35EC000C952A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4D6D2FD2ACF35EC000C952A /* ViewController.swift */; };
@@ -107,7 +116,7 @@
 		A474743B2AF038D1006E9296 /* BookedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookedModel.swift; sourceTree = "<group>"; };
 		A474743F2AF03A7E006E9296 /* BookedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookedCollectionViewCell.swift; sourceTree = "<group>"; };
 		A47474402AF03A7E006E9296 /* BookedCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookedCollectionViewCell.xib; sourceTree = "<group>"; };
-		A485C12C2AED78DB005C0F6A /* HelpCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpCenter.swift; sourceTree = "<group>"; };
+		A485C12C2AED78DB005C0F6A /* HelpCenterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpCenterModel.swift; sourceTree = "<group>"; };
 		A485C1312AED8CC5005C0F6A /* ChatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewController.swift; sourceTree = "<group>"; };
 		A485C1322AED8CC5005C0F6A /* ChatsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatsViewController.xib; sourceTree = "<group>"; };
 		A485C1362AED8D4A005C0F6A /* ChatTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
@@ -132,8 +141,17 @@
 		A48B34E72ADC7AB200FC434D /* ProfileTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileTableViewCell.xib; sourceTree = "<group>"; };
 		A48B78A82B0D45E100C6D3B6 /* BookingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingVC.swift; sourceTree = "<group>"; };
 		A48B78A92B0D45E100C6D3B6 /* BookingVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookingVC.xib; sourceTree = "<group>"; };
+		A48E1CD82B4FEE480056C96D /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
+		A48E1CD92B4FEE480056C96D /* MessageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MessageCell.xib; sourceTree = "<group>"; };
+		A48E2CC72B53E83D00A651E2 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		A49104482B545D6600E59CCA /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		A4A955122AD3EF1F00F8E9FC /* AddBlogViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBlogViewController.swift; sourceTree = "<group>"; };
 		A4BCB8822AE1932D00FFA54A /* RouterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RouterManager.swift; sourceTree = "<group>"; };
+		A4C29CC12B4F170E006D1693 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		A4C29CC22B4F170E006D1693 /* ChatViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChatViewController.xib; sourceTree = "<group>"; };
+		A4D4FF442B51C5270012C3E3 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		A4D4FF462B51C57A0012C3E3 /* ConstantMessages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantMessages.swift; sourceTree = "<group>"; };
+		A4D4FF482B51C8320012C3E3 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		A4D6D2F62ACF35EC000C952A /* FireBaseApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FireBaseApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4D6D2F92ACF35EC000C952A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A4D6D2FB2ACF35EC000C952A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -205,12 +223,13 @@
 			path = Place;
 			sourceTree = "<group>";
 		};
-		A416B6D72ADB2A3E00DB3282 /* Contants */ = {
+		A416B6D72ADB2A3E00DB3282 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				A416B6D92ADB2A5800DB3282 /* Constant.swift */,
+				A48E2CC72B53E83D00A651E2 /* UIColor.swift */,
+				A49104482B545D6600E59CCA /* UIImage.swift */,
 			);
-			path = Contants;
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		A47474302AF03850006E9296 /* Booked */ = {
@@ -243,7 +262,7 @@
 		A485C12B2AED78C8005C0F6A /* HelpCenter */ = {
 			isa = PBXGroup;
 			children = (
-				A485C12C2AED78DB005C0F6A /* HelpCenter.swift */,
+				A485C12C2AED78DB005C0F6A /* HelpCenterModel.swift */,
 			);
 			path = HelpCenter;
 			sourceTree = "<group>";
@@ -271,6 +290,8 @@
 			children = (
 				A485C1312AED8CC5005C0F6A /* ChatsViewController.swift */,
 				A485C1322AED8CC5005C0F6A /* ChatsViewController.xib */,
+				A4C29CC12B4F170E006D1693 /* ChatViewController.swift */,
+				A4C29CC22B4F170E006D1693 /* ChatViewController.xib */,
 			);
 			path = Chats;
 			sourceTree = "<group>";
@@ -280,6 +301,8 @@
 			children = (
 				A485C1362AED8D4A005C0F6A /* ChatTableViewCell.swift */,
 				A485C1372AED8D4A005C0F6A /* ChatTableViewCell.xib */,
+				A48E1CD82B4FEE480056C96D /* MessageCell.swift */,
+				A48E1CD92B4FEE480056C96D /* MessageCell.xib */,
 			);
 			path = Chats;
 			sourceTree = "<group>";
@@ -410,6 +433,7 @@
 			children = (
 				A4BCB8822AE1932D00FFA54A /* RouterManager.swift */,
 				A47154422B1F99F60020763D /* UserManager.swift */,
+				A4D4FF482B51C8320012C3E3 /* DatabaseManager.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -481,6 +505,16 @@
 			path = Booking;
 			sourceTree = "<group>";
 		};
+		A491044A2B546C1600E59CCA /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				A4D4FF462B51C57A0012C3E3 /* ConstantMessages.swift */,
+				A416B6D92ADB2A5800DB3282 /* Constant.swift */,
+				A4D4FF442B51C5270012C3E3 /* Helper.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
 		A4D6D2ED2ACF35EC000C952A = {
 			isa = PBXGroup;
 			children = (
@@ -506,8 +540,9 @@
 		A4D6D2F82ACF35EC000C952A /* FireBaseApp */ = {
 			isa = PBXGroup;
 			children = (
+				A491044A2B546C1600E59CCA /* Helper */,
 				A48B34D92ADC6F5E00FC434D /* Utility */,
-				A416B6D72ADB2A3E00DB3282 /* Contants */,
+				A416B6D72ADB2A3E00DB3282 /* Extension */,
 				A4887AD02AD2BA1800867414 /* StoryBoard */,
 				A4887ACC2AD2B9FE00867414 /* Screens */,
 				A4887ACB2AD2B9ED00867414 /* Resources */,
@@ -678,8 +713,10 @@
 			files = (
 				A4D6D3062ACF35ED000C952A /* LaunchScreen.storyboard in Resources */,
 				A42FA1D02ACFDE9300839F28 /* GoogleService-Info.plist in Resources */,
+				A4C29CC42B4F170E006D1693 /* ChatViewController.xib in Resources */,
 				A47474342AF03865006E9296 /* BookedViewController.xib in Resources */,
 				A48B78AB2B0D45E100C6D3B6 /* BookingVC.xib in Resources */,
+				A48E1CDB2B4FEE480056C96D /* MessageCell.xib in Resources */,
 				A4DA0CC82AEABAB000B80A70 /* HelpCenterTableViewCell.xib in Resources */,
 				A4DA0CC32AEAB8AA00B80A70 /* HelpCenterViewController.xib in Resources */,
 				A47474422AF03A7E006E9296 /* BookedCollectionViewCell.xib in Resources */,
@@ -820,13 +857,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4D4FF472B51C57A0012C3E3 /* ConstantMessages.swift in Sources */,
+				A49104492B545D6600E59CCA /* UIImage.swift in Sources */,
 				A489366E2ADDAFC20042A31A /* ProfileModel.swift in Sources */,
 				A40B72DD2AE073F500E4A187 /* Place.swift in Sources */,
 				A40B72D82AE065C500E4A187 /* FavoritesTableViewCell.swift in Sources */,
 				A4DA0CC22AEAB8AA00B80A70 /* HelpCenterViewController.swift in Sources */,
 				A48B34E42ADC70E200FC434D /* MapViewController.swift in Sources */,
-				A485C12D2AED78DB005C0F6A /* HelpCenter.swift in Sources */,
+				A485C12D2AED78DB005C0F6A /* HelpCenterModel.swift in Sources */,
 				A4F304C02B2492F3006262A4 /* MapModel.swift in Sources */,
+				A4D4FF452B51C5270012C3E3 /* Helper.swift in Sources */,
 				A4DA0CC72AEABAB000B80A70 /* HelpCenterTableViewCell.swift in Sources */,
 				A485C1382AED8D4A005C0F6A /* ChatTableViewCell.swift in Sources */,
 				A48870662B1D0D36004D7279 /* UserModel.swift in Sources */,
@@ -838,9 +878,11 @@
 				A4885C392AD33533008D71F4 /* BlogTableViewCell.swift in Sources */,
 				A416B6DA2ADB2A5800DB3282 /* Constant.swift in Sources */,
 				A4D6D2FA2ACF35EC000C952A /* AppDelegate.swift in Sources */,
+				A4D4FF492B51C8320012C3E3 /* DatabaseManager.swift in Sources */,
 				A485C13C2AED9A6B005C0F6A /* Chat.swift in Sources */,
 				A47154432B1F99F60020763D /* UserManager.swift in Sources */,
 				A474743C2AF038D1006E9296 /* BookedModel.swift in Sources */,
+				A48E2CC82B53E83D00A651E2 /* UIColor.swift in Sources */,
 				A4A955132AD3EF2000F8E9FC /* AddBlogViewController.swift in Sources */,
 				A44030582B11238200624247 /* BookingVM.swift in Sources */,
 				A40B72D12AE0644700E4A187 /* FavoritesViewController.swift in Sources */,
@@ -850,7 +892,9 @@
 				A48870642B1D0D2D004D7279 /* User.swift in Sources */,
 				A4D6D2FC2ACF35EC000C952A /* SceneDelegate.swift in Sources */,
 				A47474332AF03865006E9296 /* BookedViewController.swift in Sources */,
+				A4C29CC32B4F170E006D1693 /* ChatViewController.swift in Sources */,
 				A48B34E82ADC7AB200FC434D /* ProfileTableViewCell.swift in Sources */,
+				A48E1CDA2B4FEE480056C96D /* MessageCell.swift in Sources */,
 				A48936732ADDBCC60042A31A /* ProfileViewController.swift in Sources */,
 				A4BCB8832AE1932D00FFA54A /* RouterManager.swift in Sources */,
 				A416B6D62ADB20EF00DB3282 /* BlogModel.swift in Sources */,

@@ -11,52 +11,63 @@ import FirebaseAuth
 
 
 class RouterManager {
-
-    static let shared = RouterManager()
-      
-      private init() {}
-      
-      var currentNavigationController: UINavigationController?
     
-    func pushMenu(item: Int) {
+    static let shared = RouterManager()
+    
+    private init() {}
+    
+    var currentNavigationController: UINavigationController?
+    
+    //open the selected menu
+    func navigateSelectedMenu(item: Int) {
         switch item {
         case Constant.ProfileOptions.favorites.rawValue:
-            print("favori")
+            
             let vc = FavoritesViewController()
             RouterManager.shared.currentNavigationController?.pushViewController(vc, animated: true)
             
         case Constant.ProfileOptions.chats.rawValue:
-            print("chats")
             let vc = ChatsViewController()
+            vc.completion = { [weak self] result in
+                print(result)
+                self?.createNewConversation(result: result)
+            }
             RouterManager.shared.currentNavigationController?.pushViewController(vc, animated: true)
             
         case Constant.ProfileOptions.logout.rawValue:
-            print("logout")
             do {
                 try Auth.auth().signOut()
-                print("Kullanıcı çıkış yaptı")
-            } catch let signOutError as NSError {
-                print("Kullanıcı çıkış yaparken hata oluştu: \(signOutError.localizedDescription)")
+                UserManager.shared.clearUser()
+            } catch _ as NSError {
+                let vc = MapViewController()
+                RouterManager.shared.currentNavigationController?.pushViewController(vc, animated: true)
+                Helper.makeAlert(on: vc, titleInput: ConstantMessages.errorTitle, messageInput: ConstantMessages.signOutError)
             }
-           
             
         case Constant.ProfileOptions.helpCenter.rawValue:
-            print("helpCenter")
             let vc = HelpCenterViewController()
             RouterManager.shared.currentNavigationController?.pushViewController(vc, animated: true)
             
         case Constant.ProfileOptions.info.rawValue:
-            print("info")
             let vc = SettingsViewController()
             RouterManager.shared.currentNavigationController?.pushViewController(vc, animated: true)
             
         case Constant.ProfileOptions.booked.rawValue:
-            print("booked")
             let vc = BookedViewController()
             RouterManager.shared.currentNavigationController?.pushViewController(vc, animated: true)
         default:
-            print("here")
+            let vc = MapViewController()
+            RouterManager.shared.currentNavigationController?.pushViewController(vc, animated: true)
         }
     }
+    
+    // chat selected user
+    private func createNewConversation(result: Chat) {
+        let vc = ChatViewController()
+        vc.title = result.name
+        vc.navigationItem.largeTitleDisplayMode = .never
+        currentNavigationController?.pushViewController(vc, animated: true)
+    }
+    
 }
 

@@ -10,19 +10,13 @@ class User {
     var username: String? = nil
     let password: String
     var mail: String? = nil
+    var isActive: Bool? = false
     
-    init(username: String, password: String) {
-        self.username = username
-        self.password = password
-    }
-    init(username: String, password: String, mail: String) {
+    init(username: String, password: String, mail: String, isActive: Bool? = false) {
         self.username = username
         self.password = password
         self.mail = mail
+        self.isActive = isActive
     }
     
-    init(password: String, mail: String) {
-        self.password = password
-        self.mail = mail
-    }
 }

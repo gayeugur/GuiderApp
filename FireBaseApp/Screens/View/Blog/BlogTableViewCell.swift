@@ -32,7 +32,6 @@ class BlogTableViewCell: UITableViewCell {
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        //// stackView.layer.cornerRadius = 10
     }
     
     //MARK: FUNCTION
@@ -45,9 +44,7 @@ class BlogTableViewCell: UITableViewCell {
     
     func setTableCell() {
         guard let blog else { return }
-        
         if let imageURL = URL(string: blog.blogImage) {
-            
             let task = URLSession.shared.dataTask(with: imageURL) { (data, response, error) in
                 if error != nil {
                     return
@@ -58,6 +55,7 @@ class BlogTableViewCell: UITableViewCell {
                         blogimageView.image = image
                         commentText.text = blog.blogDescription
                         placeName.text = blog.blogName
+                        stackView.isHidden = false
                     }
                 }
             }

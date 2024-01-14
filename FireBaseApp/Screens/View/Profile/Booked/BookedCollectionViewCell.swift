@@ -29,12 +29,23 @@ class BookedCollectionViewCell: UICollectionViewCell {
     //MARK: OVERRIDE FUNCTION
     override func awakeFromNib() {
         super.awakeFromNib()
+        setImageMask()
     }
     
     //MARK: FUNCTION
-    func setPlace() {
+    private func setImageMask() {
+        let customColor =  UIColor(hex: 0xA94438)
+        dateIcon.image = dateIcon.image?.mask(withColor: customColor)
+        priceIcon.image = priceIcon.image?.mask(withColor: customColor)
+        guiderIcon.image = guiderIcon.image?.mask(withColor: customColor)
+    }
+    
+    private func setPlace() {
         guard let place else { return }
         
+        DispatchQueue.main.async {
+            self.view.isHidden = true
+        }
         if let imageURL = URL(string: place.image ?? "") {
             
             let task = URLSession.shared.dataTask(with: imageURL) { (data, response, error) in

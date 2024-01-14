@@ -15,6 +15,7 @@ class AddBlogViewController: UIViewController, UINavigationControllerDelegate {
     @IBOutlet weak var blogImageView: UIImageView!
     @IBOutlet weak var blogName: UITextField!
     @IBOutlet weak var blogDescription: UITextField!
+    @IBOutlet weak var addButton: UIButton!
     
     //MARK: PROPERTIES
     var blogModel = BlogModel()
@@ -23,6 +24,7 @@ class AddBlogViewController: UIViewController, UINavigationControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         addRecognizer()
+        addButton.layer.cornerRadius = 12
     }
     
     //MARK: FUNCTIONS
@@ -37,26 +39,34 @@ class AddBlogViewController: UIViewController, UINavigationControllerDelegate {
         pickerController.delegate = self
         pickerController.sourceType = .photoLibrary
         present(pickerController, animated: true, completion: nil)
-        
     }
     
     //MARK: @IBACTIONS
     @IBAction func addAction(_ sender: Any) {
         
-        if let name = blogName.text, let description = blogDescription.text, let image = blogImageView.image {
-            blogModel.uploadImageToFirebase(image: image, blogName: name, blogDescription: description) { result in
+        if let name = blogName.text,
+           let description = blogDescription.text,
+           let image = blogImageView.image {
+            
+            blogModel.uploadImageToFirebase(image: image, 
+                                            blogName: name,
+                                            blogDescription: description) { result in
                 switch result {
                 case .success(_):
                     self.navigationController?.popViewController(animated: true)
-                case .failure(_):
-                    Constant.makeAlert(on: self, titleInput: "Error", messageInput: "Try again later")
+                case .failure(let error):
+                    Helper.makeAlert(on: self,
+                                     titleInput: ConstantMessages.errorTitle,
+                                     messageInput: error.localizedDescription)
                 }
             }
+            
         } else {
-            Constant.makeAlert(on: self, titleInput: "Error", messageInput: "Try again later")
+            Helper.makeAlert(on: self,
+                             titleInput: ConstantMessages.errorTitle,
+                             messageInput: ConstantMessages.genericError)
         }
     }
-    
 }
 
 //MARK: UIImagePickerControllerDelegate
