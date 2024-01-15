@@ -36,27 +36,28 @@ final class BlogModel {
     }
     
     func uploadImageToFirebase(image: UIImage, blogName: String, blogDescription: String, completion: @escaping (Constant.ResultCases<Bool>) -> Void) {
-        
         guard let imageData = image.jpegData(compressionQuality: 0.5) else {
+            completion(.failure(Helper.createGenericError()))
             return
         }
-        
-        DatabaseManager.shared.storageRef.child("blog_images").child("\(UUID().uuidString).jpg")
-        
-        DatabaseManager.shared.storageRef.putData(imageData, metadata: nil) { (metadata, error) in
+
+        let imageFileName = "\(UUID().uuidString).jpg"
+        let storageRef = DatabaseManager.shared.storageRef.child("blog_images").child(imageFileName)
+
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/jpeg"
+
+        storageRef.putData(imageData, metadata: metadata) { (metadata, error) in
             if let error = error {
                 completion(.failure(error))
                 return
             }
-            
-            DatabaseManager.shared.storageRef.downloadURL { (url, error) in
+
+            storageRef.downloadURL { (url, error) in
                 if let downloadURL = url {
-                    
-                    let blog = Blog(blogName: blogName,
-                                    blogImage: downloadURL.absoluteString,
-                                    blogDescription: blogDescription)
+                    let blog = Blog(blogName: blogName, blogImage: downloadURL.absoluteString, blogDescription: blogDescription)
                     self.addBlog(blog: blog) { result in
-                        completion(.success(true))
+                        completion(result)
                     }
                 } else if let error = error {
                     completion(.failure(error))
@@ -64,6 +65,7 @@ final class BlogModel {
             }
         }
     }
+
     
     func addBlog(blog: Blog, completion: @escaping (Constant.ResultCases<Bool>) -> Void) {
         let blogRef = DatabaseManager.shared.fireStoreDatabase.collection("Blog").document()

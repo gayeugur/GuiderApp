@@ -7,112 +7,33 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "2C1DD48A-8760-4A85-A348-4AD19DC13B0F"
-            shouldBeEnabled = "Yes"
+            uuid = "F67CF370-F3BF-4266-BA1A-77AF97641A55"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FireBaseApp/Screens/Controller/Map/MapViewController.swift"
+            filePath = "FireBaseApp/Screens/View/Blog/BlogTableViewCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "93"
-            endingLineNumber = "93"
-            landmarkName = "mapView(_:didSelect:)"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
+            landmarkName = "setTableCell()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "2C1DD48A-8760-4A85-A348-4AD19DC13B0F - fac3e13d17e4e0dc"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FireBaseApp.MapViewController.mapView(_: __C.MKMapView, didSelect: __C.MKAnnotationView) -&gt; ()"
-                  moduleName = "FireBaseApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gayeugur/Desktop/AllSwiftApps/GuiderApp/FireBaseApp/Screens/Controller/Map/MapViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "93"
-                  endingLineNumber = "93"
-                  offsetFromSymbolStart = "1152">
-               </Location>
-               <Location
-                  uuid = "2C1DD48A-8760-4A85-A348-4AD19DC13B0F - fac3e13d17e4e0dc"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FireBaseApp.MapViewController.mapView(_: __C.MKMapView, didSelect: __C.MKAnnotationView) -&gt; ()"
-                  moduleName = "FireBaseApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gayeugur/Desktop/AllSwiftApps/GuiderApp/FireBaseApp/Screens/Controller/Map/MapViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "93"
-                  endingLineNumber = "93"
-                  offsetFromSymbolStart = "1144">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E45DE750-EB1A-49EF-946C-3DE989ED9701"
+            uuid = "D8A240F2-4C76-4E97-AD44-95082388BDE3"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "FireBaseApp/Screens/Controller/Map/MapViewController.swift"
+            filePath = "FireBaseApp/Screens/View/Blog/BlogTableViewCell.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
-            landmarkName = "mapView(_:didSelect:)"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "setTableCell()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "E45DE750-EB1A-49EF-946C-3DE989ED9701 - fac3e13d17e4e0fd"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FireBaseApp.MapViewController.mapView(_: __C.MKMapView, didSelect: __C.MKAnnotationView) -&gt; ()"
-                  moduleName = "FireBaseApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gayeugur/Desktop/AllSwiftApps/GuiderApp/FireBaseApp/Screens/Controller/Map/MapViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "92"
-                  endingLineNumber = "92"
-                  offsetFromSymbolStart = "404">
-               </Location>
-               <Location
-                  uuid = "E45DE750-EB1A-49EF-946C-3DE989ED9701 - fac3e13d17e4e0fd"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "FireBaseApp.MapViewController.mapView(_: __C.MKMapView, didSelect: __C.MKAnnotationView) -&gt; ()"
-                  moduleName = "FireBaseApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gayeugur/Desktop/AllSwiftApps/GuiderApp/FireBaseApp/Screens/Controller/Map/MapViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "92"
-                  endingLineNumber = "92"
-                  offsetFromSymbolStart = "1132">
-               </Location>
-               <Location
-                  uuid = "E45DE750-EB1A-49EF-946C-3DE989ED9701 - dc409023e7149778"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (FireBaseApp.Place) -&gt; Swift.Bool in FireBaseApp.MapViewController.mapView(_: __C.MKMapView, didSelect: __C.MKAnnotationView) -&gt; ()"
-                  moduleName = "FireBaseApp"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/gayeugur/Desktop/AllSwiftApps/GuiderApp/FireBaseApp/Screens/Controller/Map/MapViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "92"
-                  endingLineNumber = "92"
-                  offsetFromSymbolStart = "296">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -53,7 +53,9 @@ class AddBlogViewController: UIViewController, UINavigationControllerDelegate {
                                             blogDescription: description) { result in
                 switch result {
                 case .success(_):
-                    self.navigationController?.popViewController(animated: true)
+                    DispatchQueue.main.async {
+                        self.navigationController?.popViewController(animated: true)
+                    }
                 case .failure(let error):
                     Helper.makeAlert(on: self,
                                      titleInput: ConstantMessages.errorTitle,
